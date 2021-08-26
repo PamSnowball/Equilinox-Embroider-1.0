@@ -1,4 +1,4 @@
-package com.snowball.embroider.mod.load;
+package com.snowball.mod.load;
 
 import classification.Classifier;
 import com.snowball.embroider.component.blueprint.Comp;

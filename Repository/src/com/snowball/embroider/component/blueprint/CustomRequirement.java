@@ -5,7 +5,7 @@ import com.snowball.embroider.component.IComponent;
 import componentArchitecture.Requirement;
 import instances.Entity;
 import com.snowball.embroider.util.component.IRequirement;
-import com.snowball.embroider.mod.ModelConverter;
+import com.snowball.mod.ModelConverter;
 import utils.CSVReader;
 
 import java.util.Collection;

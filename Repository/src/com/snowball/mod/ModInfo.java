@@ -1,4 +1,4 @@
-package com.snowball.embroider.mod;
+package com.snowball.mod;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

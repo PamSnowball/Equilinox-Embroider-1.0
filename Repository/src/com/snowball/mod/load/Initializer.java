@@ -1,9 +1,9 @@
-package com.snowball.embroider.mod.load;
+package com.snowball.mod.load;
 
 import aiComponent.AiProgramType;
 import com.snowball.embroider.component.blueprint.Comp;
 import com.snowball.embroider.component.blueprint.CustomAi;
-import com.snowball.embroider.mod.Mod;
+import com.snowball.mod.Mod;
 import com.snowball.embroider.entity.Entity;
 import com.snowball.embroider.enumerator.classification.IClassifier;
 

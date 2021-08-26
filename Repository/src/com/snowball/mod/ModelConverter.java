@@ -1,6 +1,6 @@
-package com.snowball.embroider.mod;
+package com.snowball.mod;
 
-import com.snowball.embroider.mod.load.Initializer;
+import com.snowball.mod.load.Initializer;
 import com.snowball.embroider.util.Utils;
 import com.snowball.embroider.entity.Entity;
 

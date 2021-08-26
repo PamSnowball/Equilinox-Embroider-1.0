@@ -1,6 +1,6 @@
-package com.snowball.embroider.mod.load;
+package com.snowball.mod.load;
 
-import com.snowball.embroider.mod.Mod;
+import com.snowball.mod.Mod;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,7 +1,7 @@
 package com.snowball.embroider.entity;
 
 import com.snowball.embroider.component.IComponent;
-import com.snowball.embroider.mod.load.Initializer;
+import com.snowball.mod.load.Initializer;
 import com.snowball.embroider.util.Vector;
 import com.snowball.embroider.util.Utils;
 import resourceManagement.BlueprintRepository;
