@@ -1,23 +1,25 @@
 package com.snowball.embroider.component.blueprint;
 
+import aiComponent.Ai;
 import aiComponent.AiProgramBlueprint;
 import aiComponent.AiProgramType;
-import com.snowball.embroider.component.architecture.Ai;
+import com.snowball.embroider.component.NativeComponent;
+import com.snowball.embroider.entity.Entity;
 import componentArchitecture.ComponentBundle;
 import utils.CSVReader;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 
-public abstract class CustomBaseAi extends Ai implements AiProgramBlueprint {
+public abstract class CustomAi extends NativeComponent implements AiProgramBlueprint {
 	protected Map<Object, Boolean> map;
 
 	private final AiProgramType type;
 
 	private final String name;
 
-	protected CustomBaseAi(String name) {
-		super(name);
-
+	protected CustomAi(String name) {
 		AiProgramBlueprint blueprint = this;
 		this.type = new AiProgramType() {
 			@Override
@@ -31,13 +33,13 @@ public abstract class CustomBaseAi extends Ai implements AiProgramBlueprint {
 	}
 	
 	@Override
-	public aiComponent.Ai createInstance(ComponentBundle bundle) {
+	public Ai createInstance(ComponentBundle bundle) {
 		return this.getInstance();
 	}
 	
 	public abstract Map<Object, Boolean> setMap();
 	
-	public abstract aiComponent.Ai getInstance();
+	public abstract Ai getInstance();
 
 	public String getName() {
 		return name;
@@ -50,5 +52,15 @@ public abstract class CustomBaseAi extends Ai implements AiProgramBlueprint {
 
 	public AiProgramType getType() {
 		return type;
+	}
+
+	@Override
+	public Collection<String> load(Entity entity) {
+		return Collections.singleton("AI;" + name);
+	}
+
+	@Override
+	public int getId() {
+		return 31;
 	}
 }

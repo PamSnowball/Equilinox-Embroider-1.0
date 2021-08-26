@@ -1,4 +1,4 @@
-package com.snowball.embroider.enumerator.sound;
+package com.snowball.embroider.component.blueprint;
 
 import resourceManagement.SoundCache;
 

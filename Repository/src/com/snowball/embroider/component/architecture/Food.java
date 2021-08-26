@@ -2,64 +2,93 @@ package com.snowball.embroider.component.architecture;
 
 import com.snowball.embroider.component.NativeComponent;
 import com.snowball.embroider.entity.Entity;
+import com.snowball.embroider.mod.ModelConverter;
+import com.snowball.embroider.util.component.Death.FadeDeath;
 import com.snowball.embroider.util.component.IDeath;
-import com.snowball.utils.Utils;
-import com.snowball.embroider.enumerator.EnumEat;
+import com.snowball.embroider.util.Utils;
+import com.snowball.embroider.enumerator.FoodTypes;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 public class Food extends NativeComponent {
-	boolean hasDeath = false;
-	boolean isShare = false;
-	
-	EnumEat[] eat;
-	
-	IDeath[] death;
-	
-	int[] foodName;
-	int[] foodPoints;
-	
-	int portions;
-	
-	public Food(EnumEat[] eat, int[] foodName, int[] foodPoints) {
-		this.eat = eat;
-		this.foodName = foodName;
-		this.foodPoints = foodPoints;
-	}
-	
-	public Food(IDeath[] death, EnumEat[] eat, int[] foodName, int[] foodPoints) {
-		this.hasDeath = true;
-		this.death = death;
-		this.eat = eat;
-		this.foodName = foodName;
-		this.foodPoints = foodPoints;
+	static class Nutrient {
+		String name;
+
+		IDeath death = new FadeDeath(0.5F);
+
+		int portions = 1;
+
+		int points;
+
+		FoodTypes food;
+
+		/**
+		 * Eating behaviour data.
+		 * If {@code food} is {@linkplain com.snowball.embroider.enumerator.FoodTypes} or ROOT VEG you should specify
+		 *
+		 * @param food type of food eaten
+		 * @param name name of the food to be displayed on diet info
+		 * @param points points restored
+		 * @see FoodTypes
+		 */
+		public Nutrient(FoodTypes food, String name, int points) {
+			this.points = points;
+			if (food != null) {
+				this.food = food;
+			}
+			this.name = name;
+		}
+
+		/**	Sets a dying effect when eaten */
+		public Nutrient setDeath(IDeath death) {
+			if (death != null) this.death = death;
+			return this;
+		}
+
+		/** In how many portions this food can be shared */
+		public Nutrient setPortions(int portions) {
+			this.portions = Math.min(portions, 1);
+			return this;
+		}
+
+		static Nutrient[] get(Nutrient[] nutrients) {
+			for (Nutrient nutrient : nutrients) {
+				if (nutrient.food == null || nutrient.name == null) {
+					ModelConverter.log(Nutrient.class.getName() + ": null parameter");
+
+					return new Nutrient[] {};
+				}
+			}
+
+			return nutrients;
+		}
 	}
 
-	public Food(IDeath[] death, EnumEat[] eat, int[] foodName, int[] foodPoints, int portions) {
-		this.hasDeath = true;
-		this.isShare = true;
-		this.death = death;
-		this.eat = eat;
-		this.foodName = foodName;
-		this.foodPoints = foodPoints;
-		this.portions = portions;
+	Nutrient[] foods;
+
+	/**
+	 *
+	 *
+	 * @param foods types of
+	 */
+	public Food(Nutrient[] foods) {
+		this.foods = Nutrient.get(foods);
 	}
 		
 	public Collection<String> load(Entity entity) {
 		List<String> food = new ArrayList<>();
-		
-		food.add(Utils.value("FOOD", eat.length));
-		for (int i = 0; i < eat.length; i++)  {
-			food.add(Utils.value(foodName, foodPoints, eat[i].name())); //GameText
-			if (hasDeath && (eat[i].name().equals("WHOLE") || eat[i].name().equals("ROOT_VEG"))) {
-				food.addAll(death[i].death());
+
+		if (foods.length > 0) {
+			food.add(Utils.value("CUSTOM_FOOD", foods.length));
+			for (Nutrient nutrient : foods) {
+				food.add(Utils.value(nutrient.name, nutrient.points, nutrient.name));
+				if ((nutrient.name.equals("WHOLE") || nutrient.name.equals("ROOT_VEG"))) food.add(nutrient.death + ";");
+				else if (nutrient.name.equals("TO_SHARE")) food.add(nutrient.portions + ";");
 			}
-		
-			else if (isShare && eat[i].name().equals("TO_SHARE")) food.add(portions + ";");
 		}
-		
+
 		return food;
 	}
 	

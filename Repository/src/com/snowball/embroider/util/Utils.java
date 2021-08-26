@@ -1,4 +1,4 @@
-package com.snowball.utils;
+package com.snowball.embroider.util;
 
 import java.io.File;
 import java.util.*;

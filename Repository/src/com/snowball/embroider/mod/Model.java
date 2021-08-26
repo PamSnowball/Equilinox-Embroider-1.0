@@ -1,6 +1,6 @@
 package com.snowball.embroider.mod;
 
-import com.snowball.utils.Utils;
+import com.snowball.embroider.util.Utils;
 import com.snowball.embroider.entity.Entity;
 
 import java.util.ArrayList;

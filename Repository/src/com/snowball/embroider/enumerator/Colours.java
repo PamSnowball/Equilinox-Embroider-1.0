@@ -2,7 +2,7 @@ package com.snowball.embroider.enumerator;
 
 import com.snowball.embroider.util.Vector;
 
-public enum EnumColours {
+public enum Colours {
 	RED(new Vector(241, 146, 146)),
 	RUBY_RED(new Vector(162, 79, 79)),
 	YELLOW(new Vector(213, 222, 128)),
@@ -45,7 +45,7 @@ public enum EnumColours {
 	
 	private final Vector colour;
 
-	EnumColours(Vector colour) {
+	Colours(Vector colour) {
 		this.colour = colour;
 	}
 	
@@ -54,7 +54,7 @@ public enum EnumColours {
 	}
 	
 	public static String checkForColour(Vector colour) {
-		for (EnumColours e : values()) if (e.getColour() == colour) return e.name();
+		for (Colours e : values()) if (e.getColour() == colour) return e.name();
 		return "CUSTOM;" + colour.value();
 	}
 }

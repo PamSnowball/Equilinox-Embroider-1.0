@@ -1,18 +1,18 @@
 package com.snowball.embroider.util.requirement;
 
 import com.snowball.embroider.util.component.IRequirement;
-import com.snowball.utils.Utils;
-import com.snowball.embroider.enumerator.EnumBiome;
+import com.snowball.embroider.util.Utils;
+import com.snowball.embroider.enumerator.Biomes;
 
 import java.util.Collection;
 import java.util.Collections;
 
 public class ReqBiome implements IRequirement {
-	EnumBiome biome;
+	Biomes biome;
 		
 	float amount;
 		
-	public ReqBiome(EnumBiome biome, float amount) {
+	public ReqBiome(Biomes biome, float amount) {
 		this.biome = biome;
 		this.amount = amount;
 	}

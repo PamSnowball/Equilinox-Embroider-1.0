@@ -2,7 +2,7 @@ package com.snowball.embroider.component.architecture;
 
 import com.snowball.embroider.component.NativeComponent;
 import com.snowball.embroider.entity.Entity;
-import com.snowball.utils.Utils;
+import com.snowball.embroider.util.Utils;
 import com.snowball.embroider.enumerator.classification.IClassifier;
 
 import java.util.ArrayList;
@@ -10,34 +10,40 @@ import java.util.Collection;
 import java.util.List;
 
 public class Flee extends NativeComponent {
-	String classification;
+	IClassifier classification;
 	
 	float range;
-	
-	Entity entity;
-	
-	public Flee(Entity entity, float safeRange, IClassifier hidingClassification) {
-		this.classification = hidingClassification.getClassification();
+
+	/**
+	 * Constructs the FLEE component which is used by many animals to set danger avoiding behaviour.
+	 *
+	 * @param safeRange range of danger detection
+	 */
+	public Flee(float safeRange) {
 		this.range = safeRange;
-		this.entity = entity;
 	}
-	
-	public Flee(Entity entity, float safeRange) {
-		this.range = safeRange;
-		this.entity = entity;
+
+	/** Use if entity hides into an entity to avoid attacks */
+	public NativeComponent setsHiddenSpot(IClassifier classification) {
+		if (classification != null) {
+			this.classification = classification;
+		}
+		return this;
 	}
-	
+
 	@Override
 	public Collection<String> load(Entity entity) {
 		List<String> flee = new ArrayList<>();
 		
 		flee.add(Utils.value("FLEE;"));
 		
-		if (entity.hasComponent(Ai.TortoiseAi.class)) flee.add("TURTLE;"); 
-		else if (entity.hasComponent(Ai.MeerkatAi.class)) flee.add("MERKAT;"); 
+		if (entity.hasComponent(Ai.TortoiseAi.class)) flee.add("TURTLE;");
+		else if (entity.hasComponent(Ai.MeerkatAi.class)) flee.add("MEERKAT;");
 		else flee.add("safeRange;");
 		
-		flee.add(Utils.value(range, "land", entity.isAquatic() ? 1 : 0, "swim", entity.isLand() ? 1 : 0));
+		flee.add(Utils.value(range, "land", entity.isLand() ? 1 : 0, "swim", entity.isAquatic() ? 1 : 0));
+
+		if (classification != null) flee.add(classification.toString());
 
 		return flee;
 	}	

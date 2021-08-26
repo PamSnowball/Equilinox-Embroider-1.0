@@ -5,7 +5,7 @@ import com.snowball.embroider.entity.Entity;
 import com.snowball.embroider.util.component.Breed;
 import com.snowball.embroider.util.component.IDeath;
 import com.snowball.embroider.util.component.IEnvironment;
-import com.snowball.utils.Utils;
+import com.snowball.embroider.util.Utils;
 
 import java.util.ArrayList;
 import java.util.Collection;

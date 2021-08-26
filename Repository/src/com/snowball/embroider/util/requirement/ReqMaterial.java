@@ -1,15 +1,15 @@
 package com.snowball.embroider.util.requirement;
 
 import com.snowball.embroider.util.component.IRequirement;
-import com.snowball.embroider.enumerator.EnumColours;
+import com.snowball.embroider.enumerator.Colours;
 
 import java.util.Collection;
 import java.util.Collections;
 
 public class ReqMaterial implements IRequirement {
-	EnumColours colour;
+	Colours colour;
 	
-	public ReqMaterial(EnumColours colour) {
+	public ReqMaterial(Colours colour) {
 		this.colour = colour;
 	}
 

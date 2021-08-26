@@ -2,7 +2,7 @@ package com.snowball.embroider.component.architecture.building;
 
 import com.snowball.embroider.component.NativeComponent;
 import com.snowball.embroider.entity.Entity;
-import com.snowball.utils.Utils;
+import com.snowball.embroider.util.Utils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,18 +26,10 @@ public class Build extends NativeComponent {
 		this.count = stageCount;
 	}
 
-	/**
-	 * Constructs the BUILD component which is used by dens, nests and hives to set building variables. <br>
-	 * The BUILD component is set up using build points, the builder entity put a determined amount of build points you must set up.
-	 *
-	 * @param stageCount amount of build stages
-	 * @param maxBuildPoints max build points
-	 * @param fullyBuildAt build points required for the building to be fully built
-	 */
-	public Build(int stageCount, int maxBuildPoints, int fullyBuildAt) {
-		this.points = maxBuildPoints;
+	/** Build points required for the building to reach last model stage */
+	public NativeComponent setFullyEarly(int fullyBuildAt) {
 		this.done = fullyBuildAt;
-		this.count = stageCount;
+		return this;
 	}
 	
 	@Override

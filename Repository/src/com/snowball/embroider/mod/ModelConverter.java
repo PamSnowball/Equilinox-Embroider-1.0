@@ -1,7 +1,7 @@
 package com.snowball.embroider.mod;
 
 import com.snowball.embroider.mod.load.Initializer;
-import com.snowball.utils.Utils;
+import com.snowball.embroider.util.Utils;
 import com.snowball.embroider.entity.Entity;
 
 import java.io.*;
@@ -18,6 +18,8 @@ public class ModelConverter {
 	private static int i;
 
 	public static void log(String log) {
+		System.err.println(log);
+
 		output.append(log).append("\n");
 	}
 

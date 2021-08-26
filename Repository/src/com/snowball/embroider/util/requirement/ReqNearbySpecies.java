@@ -1,7 +1,7 @@
 package com.snowball.embroider.util.requirement;
 
 import com.snowball.embroider.util.component.IRequirement;
-import com.snowball.utils.Utils;
+import com.snowball.embroider.util.Utils;
 import com.snowball.embroider.enumerator.classification.IClassifier;
 
 import java.util.Collection;

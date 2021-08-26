@@ -2,7 +2,7 @@ package com.snowball.embroider.component.architecture.unique;
 
 import com.snowball.embroider.component.NativeComponent;
 import com.snowball.embroider.entity.Entity;
-import com.snowball.utils.Utils;
+import com.snowball.embroider.util.Utils;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -16,9 +16,9 @@ public class Hive extends NativeComponent {
 	 * Constructs the HIVE component which is used by hives to set their den dependency. <br>
 	 * Hives have a max honey of 300, a start stage and a stage count of 4 <p>
 	 *
-	 * Snowball:<i> would be a good idea to use this component as a container of a property
-	 * and ignore that the name of the component in "HIVE" then use a
-	 * custom component which interacts with this component. </i>
+	 * Snowball's tip:<i> would be a good idea to use this component as a container of a property
+	 * and ignore that the name of the component in "HIVE" then use a custom component which interacts with this
+	 * component. As an example, an apple basket which can contain apples. </i>
 	 * @param maxHoney max honey
 	 * @param startStage stage which content starts being produced
 	 * @param stageCount stages past {@code startStage} that content is produced

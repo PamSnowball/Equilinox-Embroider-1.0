@@ -2,7 +2,7 @@ package com.snowball.embroider.component.architecture.data;
 
 import com.snowball.embroider.component.NativeComponent;
 import com.snowball.embroider.entity.Entity;
-import com.snowball.utils.Utils;
+import com.snowball.embroider.util.Utils;
 import com.snowball.embroider.enumerator.sound.ISound;
 
 import java.util.ArrayList;

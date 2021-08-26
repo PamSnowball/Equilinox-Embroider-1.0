@@ -1,6 +1,6 @@
 package com.snowball.embroider.enumerator;
 
-public enum EnumBiome { 
+public enum Biomes {
 	GRASSLAND(0),
 	FOREST(1),
 	RIVER_BED(2),
@@ -14,7 +14,7 @@ public enum EnumBiome {
 	
 	private int id;
 	
-	EnumBiome(int id) {
+	Biomes(int id) {
 		this.id = id;
 	}
 	

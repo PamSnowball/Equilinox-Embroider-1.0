@@ -1,7 +1,7 @@
 package com.snowball.embroider.util.component;
 
-import com.snowball.utils.Utils;
-import com.snowball.embroider.enumerator.EnumBiome;
+import com.snowball.embroider.util.Utils;
+import com.snowball.embroider.enumerator.Biomes;
 import com.snowball.embroider.enumerator.classification.IClassifier;
 
 import java.util.ArrayList;
@@ -35,12 +35,12 @@ public class Environment {
 	public static class EnvironmentLikedBiome implements IEnvironment {
 		boolean barren;
 		
-		EnumBiome[] biomes;
+		Biomes[] biomes;
 		
 		float ideal;
 		float influence;
 
-		public EnvironmentLikedBiome(boolean growsBarren, EnumBiome[] likedBiomes, float ideal, float healthInfluence) {
+		public EnvironmentLikedBiome(boolean growsBarren, Biomes[] likedBiomes, float ideal, float healthInfluence) {
 			this.influence = healthInfluence;
 			this.barren = growsBarren;
 			this.biomes = likedBiomes;
@@ -53,7 +53,7 @@ public class Environment {
 			
 			if (biomes != null) { 
 				environment.add(Utils.value(I, 2, "barren", barren ? 1 : 0, "likedBiomes", biomes.length));
-				for (EnumBiome biome : biomes) environment.add(biome.getId() + ";");
+				for (Biomes biome : biomes) environment.add(biome.getId() + ";");
 				environment.add(Utils.value("idealFactor", ideal, "influence", influence + ';'));
 			}
 			
@@ -63,11 +63,11 @@ public class Environment {
 	
 	public static class EnvironmentUnsuitableBiome implements IEnvironment {
 
-		EnumBiome[] biomes;
+		Biomes[] biomes;
 		
 		float influence;
 		
-		public EnvironmentUnsuitableBiome(EnumBiome[] dislikedBiomes, float healthInfluence) {
+		public EnvironmentUnsuitableBiome(Biomes[] dislikedBiomes, float healthInfluence) {
 			this.biomes = dislikedBiomes;
 			this.influence = healthInfluence;
 		}
@@ -77,7 +77,7 @@ public class Environment {
 			List<String> environment = new ArrayList<>();
 			
 			environment.add(I + 3 + ";dislikedBiomes;" + biomes.length);
-			for (EnumBiome biome : biomes) environment.add(biome.getId() + ";");
+			for (Biomes biome : biomes) environment.add(biome.getId() + ";");
 			environment.add(IN + influence + ';');
 			
 			return environment;
@@ -85,11 +85,11 @@ public class Environment {
 	}
 	
 	public static class EnvironmentFavouriteBiome implements IEnvironment {
-		EnumBiome biome;
+		Biomes biome;
 		
 		float influence;
 		
-		public EnvironmentFavouriteBiome(EnumBiome favouriteBiome, float healthInfluence) {
+		public EnvironmentFavouriteBiome(Biomes favouriteBiome, float healthInfluence) {
 			this.biome = favouriteBiome;
 			this.influence = healthInfluence;
 		}

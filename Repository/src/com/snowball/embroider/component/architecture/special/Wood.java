@@ -3,7 +3,7 @@ package com.snowball.embroider.component.architecture.special;
 import com.snowball.embroider.component.NativeComponent;
 import com.snowball.embroider.entity.Entity;
 import com.snowball.embroider.util.Vector;
-import com.snowball.utils.Utils;
+import com.snowball.embroider.util.Utils;
 
 import java.util.Collection;
 import java.util.Collections;

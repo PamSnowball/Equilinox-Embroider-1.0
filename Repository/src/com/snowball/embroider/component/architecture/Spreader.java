@@ -3,14 +3,14 @@ package com.snowball.embroider.component.architecture;
 import com.snowball.embroider.component.NativeComponent;
 import com.snowball.embroider.entity.Entity;
 import com.snowball.embroider.util.Vector;
-import com.snowball.utils.Utils;
-import com.snowball.embroider.enumerator.EnumBiome;
+import com.snowball.embroider.util.Utils;
+import com.snowball.embroider.enumerator.Biomes;
 
 import java.util.Collection;
 import java.util.Collections;
 
 public class Spreader extends NativeComponent {
-	EnumBiome biome;
+	Biomes biome;
 	
 	float strength;
 	
@@ -18,7 +18,7 @@ public class Spreader extends NativeComponent {
 	
 	Vector colour;
 	
-	public Spreader(EnumBiome biome, Vector colour, float strength, int distance) {
+	public Spreader(Biomes biome, Vector colour, float strength, int distance) {
 		this.biome = biome;
 		this.colour = colour;
 		this.strength = strength;

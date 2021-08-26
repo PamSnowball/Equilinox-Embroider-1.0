@@ -1,18 +1,16 @@
 package com.snowball.embroider.entity;
 
-import com.snowball.component.architecture.*;
 import com.snowball.embroider.component.architecture.*;
+import com.snowball.embroider.enumerator.classification.specific.AnimalClassification;
 import com.snowball.embroider.util.Vector;
 import com.snowball.embroider.util.requirement.ReqBiome;
 import com.snowball.embroider.util.requirement.ReqTransform;
 import com.snowball.embroider.util.component.*;
-import com.snowball.util.component.*;
-import snowball.embroider.component.architecture.*;
-import com.snowball.embroider.enumerator.EnumBiome;
-import com.snowball.embroider.enumerator.EnumColours;
+import com.snowball.embroider.enumerator.Biomes;
+import com.snowball.embroider.enumerator.Colours;
 import com.snowball.embroider.enumerator.classification.BaseClassification;
 import com.snowball.embroider.enumerator.classification.IClassifier;
-import com.snowball.embroider.enumerator.sound.EnumSound;
+import com.snowball.embroider.enumerator.sound.Sounds;
 import com.snowball.embroider.util.component.Breed;
 import com.snowball.embroider.util.component.Environment;
 import com.snowball.embroider.util.component.IEnvironment;
@@ -32,8 +30,10 @@ public class EntityWhaleShark extends Entity {
 		 * The last parameter is the water requirement, it matches how deep the water must be for your entity to be placed on, the lower the value,
 		 * the deeper it must be. If your entity doesn't go underwater, leave it 0.
 		 */
-		super(2004, "Shark_Whale", BaseClassification.BIG_FISH, 6, new WaterData(true, -0.5F), null, new IconData(1, 2.4F));
-		
+		super(2004, "Shark_Whale", BaseClassification.BIG_FISH, 6, 3, new WaterData(true, -0.5F));
+
+		this.setIconData(new IconData(1, 2.4F));
+
 		//These are the component loaders, they are what makes the model a creature.
 		
 		//These are the colors for my Whale Shark, you can put them as RGB like here or
@@ -43,7 +43,7 @@ public class EntityWhaleShark extends Entity {
 		Vector[] colors = { new Vector("#3c454a"), new Vector("#5a422d"), new Vector("#606060"), new Vector("#4e4254") };
 		
 		//You can pick colors from snowball.embroider.EnumColours enum.
-		Vector[] enumColors = { EnumColours.DARK_BLUE.getColour(), EnumColours.DARK_BROWN.getColour(), EnumColours.DARK_GREY.getColour(), EnumColours.DARK_PURPLE.getColour()};
+		Vector[] enumColors = { Colours.DARK_BLUE.getColour(), Colours.DARK_BROWN.getColour(), Colours.DARK_GREY.getColour(), Colours.DARK_PURPLE.getColour()};
 		
 		/*
 		 * There are the prices of each color. if the entity has more prices than colors, it prints "Entity [entity name] has more colors than prices" and ignores the extra prices.
@@ -52,10 +52,10 @@ public class EntityWhaleShark extends Entity {
 		 */
 		int[] prices = { 1750, 15300, 53600, 117500 };
 
-		MaterialColor purple = new MaterialColor(EnumColours.DARK_GREY.getColour(), 117500);
-		MaterialColor brown = new MaterialColor(EnumColours.DARK_BROWN.getColour(), 15300);
-		MaterialColor grey = new MaterialColor(EnumColours.DARK_GREY.getColour(), 53600);
-		MaterialColor blue = new MaterialColor(EnumColours.DARK_BLUE.getColour(), 1750);
+		MaterialColor purple = new MaterialColor(Colours.DARK_GREY.getColour(), 117500);
+		MaterialColor brown = new MaterialColor(Colours.DARK_BROWN.getColour(), 15300);
+		MaterialColor grey = new MaterialColor(Colours.DARK_GREY.getColour(), 53600);
+		MaterialColor blue = new MaterialColor(Colours.DARK_BLUE.getColour(), 1750);
 		
 		/*
 		 * This component is the color of the creature.
@@ -78,14 +78,14 @@ public class EntityWhaleShark extends Entity {
 		 * The fifth parameter is the range this creature walk, the average range is 2, Whale Sharks swim a lot further.
 		 * The sixth parameter is the sound it makes when you put the creature down, marine creatures do a splash sound effect, SPLASH!
 		 */
-		this.componentLoader(new Information("Whale Shark", description, 273000, 775, 4, EnumSound.SPLASH));
+		this.componentLoader(new Information("Whale Shark", description, 273000, 775, 4, Sounds.SPLASH));
 
 		/*
 		 * Requirements to evolve.
 		 * ReqTransform is the size needed, in this case 1.15x the normal species count.
 		 * ReqBiome is the biome the creature must be at to evolve and the biome % required.
 		 */
-		IRequirement[] evolveRequirements = { new ReqTransform(1.15F), new ReqBiome(EnumBiome.TROPICAL, 0.35F) };
+		IRequirement[] evolveRequirements = { new ReqTransform(1.15F), new ReqBiome(Biomes.TROPICAL, 0.35F) };
 
 		/*
 		 * Habitat specification, the requirements for having a healthy and mighty life.
@@ -99,7 +99,7 @@ public class EntityWhaleShark extends Entity {
 		 * The second parameter is the health influence in its life, in this case large rocks are tremendously important for our entity.
 		 */
 		IEnvironment[] environmentRequirements = {
-				new Environment.EnvironmentLikedBiome(false, new EnumBiome[] { EnumBiome.TROPICAL }, 80F, 0.5F),
+				new Environment.EnvironmentLikedBiome(false, new Biomes[] { Biomes.TROPICAL }, 80F, 0.5F),
 				new Environment.EnvironmentLikedSpecies(new IClassifier[] { BaseClassification.LARGE_ROCK }, 0.8F)
 		};
 
@@ -118,7 +118,8 @@ public class EntityWhaleShark extends Entity {
 		 * The sixth parameter is the death type, in this case they float to the surface when died.
 		 * The last parameter is the requirements for being healthy and live longer.
 		 */
-		this.componentLoader(new Life(3, 90, null, new Breed(30, 30.385346F, 23, 150, evolveRequirements),
+		this.componentLoader(new Life(3, 90, null,
+				new Breed(30, 30.385346F, AnimalClassification.PIKE.getId(), 150, evolveRequirements),
 				new Death.FloatDeath(), environmentRequirements));
 		
 		/*
@@ -147,11 +148,5 @@ public class EntityWhaleShark extends Entity {
 		
 		//This is the AI of our beautiful entity, this is the last and simplest component.
 		this.componentLoader(new Ai.SwimAi());
-		
-		/*
-		 * Oof! Finally, we finished our creature, was it easy? I do think so, the last step is to put it at the entity list, otherwise the game
-		 * won't load it and all our work.
-		 */
-		EntityLoader.ENTITIES.add(this);
 	}
 }

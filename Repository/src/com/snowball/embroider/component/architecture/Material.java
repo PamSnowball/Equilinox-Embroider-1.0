@@ -3,8 +3,8 @@ package com.snowball.embroider.component.architecture;
 import com.snowball.embroider.component.NativeComponent;
 import com.snowball.embroider.entity.Entity;
 import com.snowball.embroider.util.Vector;
-import com.snowball.utils.Utils;
-import com.snowball.embroider.enumerator.EnumColours;
+import com.snowball.embroider.util.Utils;
+import com.snowball.embroider.enumerator.Colours;
 
 import java.util.*;
 import java.util.stream.IntStream;
@@ -39,7 +39,7 @@ public class Material extends NativeComponent {
 
 			colour.add(Utils.value("MATERIAL;second", hasSecond ? 1 : 0, "count" + colors.length));
 			for (int i = 0; i < colors.length; i++) {
-				colour.add(EnumColours.checkForColour(colors[i]) + ";" + prices[i] + ";");
+				colour.add(Colours.checkForColour(colors[i]) + ";" + prices[i] + ";");
 			}
 		}
 
