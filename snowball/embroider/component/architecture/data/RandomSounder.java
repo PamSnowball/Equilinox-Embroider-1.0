@@ -1,9 +1,9 @@
 package com.snowball.embroider.component.architecture.data;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.entity.Entity;
+import com.snowball.embroider.Entity;
+import com.snowball.embroider.util.component.CompSound;
 import com.snowball.embroider.util.Utils;
-import com.snowball.embroider.enumerator.sound.ISound;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -11,7 +11,7 @@ import java.util.List;
 
 public class RandomSounder extends NativeComponent {
 	public static class SoundFile {
-		ISound sound;
+		CompSound sound;
 		float range;
 
 		/**
@@ -25,13 +25,13 @@ public class RandomSounder extends NativeComponent {
 		 * @param sound sound played
 		 * @param range range of sound
 		 */
-		public SoundFile(ISound sound, float range) {
+		public SoundFile(CompSound sound, float range) {
 			this.sound = sound;
 			this.range = range;
 		}
 	}
 
-	ISound[] sounds;
+	CompSound[] sounds;
 
 	float[] ranges;
 
@@ -69,11 +69,11 @@ public class RandomSounder extends NativeComponent {
 		this.setVolume(0);
 
 		if (sounds != null) {
-			ISound[] sound = new ISound[sounds.length];
+			CompSound[] sound = new CompSound[sounds.length];
 			float[] range = new float[sounds.length];
 
 			for (int i = 0; i < sounds.length; i++) {
-				sounds[i].sound.loadSound().loadSound();
+				sounds[i].sound.loadSound();
 
 				sound[i] = sounds[i].sound;
 				range[i] = sounds[i].range;

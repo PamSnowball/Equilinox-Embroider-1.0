@@ -1,10 +1,10 @@
 package com.snowball.embroider.component.architecture;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.entity.Entity;
+import com.snowball.embroider.Entity;
 import com.snowball.embroider.util.component.Breed;
-import com.snowball.embroider.util.component.IDeath;
-import com.snowball.embroider.util.component.IEnvironment;
+import com.snowball.embroider.util.component.CompDeath;
+import com.snowball.embroider.util.component.CompEnvironment;
 import com.snowball.embroider.util.Utils;
 
 import java.util.ArrayList;
@@ -19,13 +19,13 @@ public class Life extends NativeComponent {
 	
 	float[] factors;
 	
-	IDeath death;
-	IEnvironment[] environments;
+	CompDeath death;
+	CompEnvironment[] environments;
 	
 	int points = 0;
 	
-	public Life(float averagePopulation, float averageLifespan, float[] populationFactors, Breed breed, IDeath death, 
-			IEnvironment[] lifeRequirements) {
+	public Life(float averagePopulation, float averageLifespan, float[] populationFactors, Breed breed, CompDeath death,
+			CompEnvironment[] lifeRequirements) {
 		this.population = averagePopulation;
 		this.lifespan = averageLifespan;
 		this.factors = populationFactors;
@@ -34,8 +34,8 @@ public class Life extends NativeComponent {
 		this.environments = lifeRequirements;
 	}
 	
-	public Life(float averagePopulation, float averageLifespan, float[] populationFactors, Breed breed, IDeath death, 
-			IEnvironment[] lifeRequirements, int defencePoints) {
+	public Life(float averagePopulation, float averageLifespan, float[] populationFactors, Breed breed, CompDeath death,
+				CompEnvironment[] lifeRequirements, int defencePoints) {
 		this.population = averagePopulation;
 		this.lifespan = averageLifespan;
 		this.factors = populationFactors;
@@ -53,7 +53,7 @@ public class Life extends NativeComponent {
 		life.addAll(breed.breed());
 		life.addAll(death.death());
 		life.add("enviroReqCount;" + environments.length + ';');
-		for (IEnvironment environment : environments) life.addAll(environment.requirement());
+		for (CompEnvironment environment : environments) life.addAll(environment.requirement());
 		if (points != 0) {
 			life.add("defencePoints;" + points);
 		}

@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture.hunt;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.entity.Entity;
+import com.snowball.embroider.Entity;
 import com.snowball.embroider.enumerator.classification.IClassifier;
 import com.snowball.embroider.util.Utils;
 
@@ -27,7 +27,7 @@ public class Hunt extends NativeComponent {
 	 */
 	public Hunt(int range, IClassifier[] classifications, boolean huntsYoung, boolean huntsOld) {
 		this.classifications = classifications;
-		this.range = Math.min(range, 1);
+		this.range = Math.max(range, 1);
 		this.young = huntsYoung;
 		this.old = huntsOld;
 	}

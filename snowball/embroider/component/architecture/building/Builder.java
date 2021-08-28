@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture.building;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.entity.Entity;
+import com.snowball.embroider.Entity;
 import com.snowball.embroider.enumerator.classification.IClassifier;
 import com.snowball.embroider.util.Utils;
 
@@ -33,7 +33,7 @@ public class Builder extends NativeComponent {
 	 */
 	public Builder(IClassifier building, int buildSpeed, boolean needsPerch, float buildingTime, float buildAgeFactor) {
 		this.building = building;
-		this.age = Math.min(buildAgeFactor - 0.5F, 0);
+		this.age = Math.max(buildAgeFactor - 0.5F, 0);
 		this.time = buildingTime;
 		this.speed = buildSpeed;
 		this.perch = needsPerch;

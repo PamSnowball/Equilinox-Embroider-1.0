@@ -1,5 +1,6 @@
 package com.snowball.embroider.entity;
 
+import com.snowball.embroider.Entity;
 import com.snowball.embroider.component.architecture.*;
 import com.snowball.embroider.enumerator.classification.specific.AnimalClassification;
 import com.snowball.embroider.util.Vector;
@@ -10,11 +11,11 @@ import com.snowball.embroider.enumerator.Biomes;
 import com.snowball.embroider.enumerator.Colours;
 import com.snowball.embroider.enumerator.classification.BaseClassification;
 import com.snowball.embroider.enumerator.classification.IClassifier;
-import com.snowball.embroider.enumerator.sound.Sounds;
+import com.snowball.embroider.enumerator.Sounds;
 import com.snowball.embroider.util.component.Breed;
 import com.snowball.embroider.util.component.Environment;
-import com.snowball.embroider.util.component.IEnvironment;
-import com.snowball.embroider.util.component.IRequirement;
+import com.snowball.embroider.util.component.CompEnvironment;
+import com.snowball.embroider.util.component.CompRequirement;
 
 //This is my Entity Class :D
 public class EntityWhaleShark extends Entity {
@@ -30,9 +31,10 @@ public class EntityWhaleShark extends Entity {
 		 * The last parameter is the water requirement, it matches how deep the water must be for your entity to be placed on, the lower the value,
 		 * the deeper it must be. If your entity doesn't go underwater, leave it 0.
 		 */
-		super(2004, "Shark_Whale", BaseClassification.BIG_FISH, 6, 3, new WaterData(true, -0.5F));
+		super(2004, "Shark_Whale", BaseClassification.BIG_FISH, 6, 3);
 
-		this.setIconData(new IconData(1, 2.4F));
+		this.setIconData(1, 2.4F);
+		this.setAquatic(-0.5F);
 
 		//These are the component loaders, they are what makes the model a creature.
 		
@@ -85,7 +87,7 @@ public class EntityWhaleShark extends Entity {
 		 * ReqTransform is the size needed, in this case 1.15x the normal species count.
 		 * ReqBiome is the biome the creature must be at to evolve and the biome % required.
 		 */
-		IRequirement[] evolveRequirements = { new ReqTransform(1.15F), new ReqBiome(Biomes.TROPICAL, 0.35F) };
+		CompRequirement[] evolveRequirements = { new ReqTransform(1.15F), new ReqBiome(Biomes.TROPICAL, 0.35F) };
 
 		/*
 		 * Habitat specification, the requirements for having a healthy and mighty life.
@@ -98,7 +100,7 @@ public class EntityWhaleShark extends Entity {
 		 * The first parameter of it is an array of liked species classification.
 		 * The second parameter is the health influence in its life, in this case large rocks are tremendously important for our entity.
 		 */
-		IEnvironment[] environmentRequirements = {
+		CompEnvironment[] environmentRequirements = {
 				new Environment.EnvironmentLikedBiome(false, new Biomes[] { Biomes.TROPICAL }, 80F, 0.5F),
 				new Environment.EnvironmentLikedSpecies(new IClassifier[] { BaseClassification.LARGE_ROCK }, 0.8F)
 		};
@@ -129,7 +131,7 @@ public class EntityWhaleShark extends Entity {
 		 * The third parameter is how many stages your entity has, this parameter is extremely important, because it will make so the system searches for obj files like:
 		 * [name of the entity ("2000_Shark_Whale") + _ + model stage (0, 1, 2) + .obj]
 		 */ 
-		this.componentLoader(new Growth(this, 15, 3));
+		this.componentLoader(new Growth(15));
 		
 		/*
 		 * Moving is pretty important for an animal, am I right?

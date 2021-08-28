@@ -1,12 +1,12 @@
 package com.snowball.embroider.util.requirement;
 
-import com.snowball.embroider.util.component.IRequirement;
+import com.snowball.embroider.util.component.CompRequirement;
 import com.snowball.embroider.util.Utils;
 
 import java.util.Collection;
 import java.util.Collections;
 
-public class ReqSatisfaction implements IRequirement {
+public class ReqSatisfaction implements CompRequirement {
 	float satisfaction;
 	
 	public ReqSatisfaction(float satisfaction) {

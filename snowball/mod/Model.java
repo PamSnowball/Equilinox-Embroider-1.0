@@ -1,7 +1,7 @@
 package com.snowball.mod;
 
 import com.snowball.embroider.util.Utils;
-import com.snowball.embroider.entity.Entity;
+import com.snowball.embroider.Entity;
 
 import java.util.ArrayList;
 import java.util.HashMap;

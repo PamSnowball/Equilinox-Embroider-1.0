@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture.unique;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.entity.Entity;
+import com.snowball.embroider.Entity;
 import com.snowball.embroider.util.Utils;
 
 import java.util.Collection;
@@ -24,8 +24,8 @@ public class Hive extends NativeComponent {
 	 * @param stageCount stages past {@code startStage} that content is produced
 	 */
 	public Hive(int maxHoney, int startStage, int stageCount) {
-		this.count = Math.min(stageCount, 1);
-		this.start = Math.min(startStage, 1);
+		this.count = Math.max(stageCount, 1);
+		this.start = Math.max(startStage, 1);
 		this.honey = maxHoney;
 	}
 	

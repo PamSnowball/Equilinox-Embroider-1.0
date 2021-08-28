@@ -4,7 +4,7 @@ import classification.Classifier;
 import com.snowball.embroider.component.blueprint.Comp;
 import componentArchitecture.ComponentType;
 import resourceManagement.BlueprintRepository;
-import com.snowball.embroider.entity.Entity;
+import com.snowball.embroider.Entity;
 import com.snowball.embroider.enumerator.classification.IClassifier;
 
 import java.lang.reflect.Method;

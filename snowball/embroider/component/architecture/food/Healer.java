@@ -1,22 +1,22 @@
 package com.snowball.embroider.component.architecture.food;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.entity.Entity;
-import com.snowball.embroider.util.component.IDeath;
+import com.snowball.embroider.Entity;
+import com.snowball.embroider.util.component.CompDeath;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 public class Healer extends NativeComponent {
-	IDeath death;
+	CompDeath death;
 
 	/**
 	 * Constructs the HEALER component which is used by WitchWood fruit to set eaten aesthetics.
 	 *
 	 * @param death eaten death aesthetics
 	 */
-	public Healer(IDeath death) {
+	public Healer(CompDeath death) {
 		this.death = death;
 	}
 	

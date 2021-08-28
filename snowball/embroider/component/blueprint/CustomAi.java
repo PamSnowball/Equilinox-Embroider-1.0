@@ -4,7 +4,7 @@ import aiComponent.Ai;
 import aiComponent.AiProgramBlueprint;
 import aiComponent.AiProgramType;
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.entity.Entity;
+import com.snowball.embroider.Entity;
 import componentArchitecture.ComponentBundle;
 import utils.CSVReader;
 

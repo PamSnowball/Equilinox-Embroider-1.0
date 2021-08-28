@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.entity.Entity;
+import com.snowball.embroider.Entity;
 import com.snowball.embroider.util.Utils;
 import com.snowball.embroider.enumerator.Animations;
 import com.snowball.embroider.enumerator.FoodTypes;
@@ -65,9 +65,9 @@ public class Eating extends NativeComponent {
 	 * @see Eat
 	 */
 	public Eating(int maxHunger, float hunger, float radius, Eat[] eats) {
-		this.maxHunger = Math.min(maxHunger, 0);
-		this.hunger = Math.min(hunger, 0);
-		this.radius = Math.min(radius, 0);
+		this.maxHunger = Math.max(maxHunger, 0);
+		this.hunger = Math.max(hunger, 0);
+		this.radius = Math.max(radius, 0);
 
 		this.eats = Eat.get(eats);
 	}

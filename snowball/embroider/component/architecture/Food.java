@@ -1,10 +1,10 @@
 package com.snowball.embroider.component.architecture;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.entity.Entity;
+import com.snowball.embroider.Entity;
 import com.snowball.mod.ModelConverter;
 import com.snowball.embroider.util.component.Death.FadeDeath;
-import com.snowball.embroider.util.component.IDeath;
+import com.snowball.embroider.util.component.CompDeath;
 import com.snowball.embroider.util.Utils;
 import com.snowball.embroider.enumerator.FoodTypes;
 
@@ -16,7 +16,7 @@ public class Food extends NativeComponent {
 	static class Nutrient {
 		String name;
 
-		IDeath death = new FadeDeath(0.5F);
+		CompDeath death = new FadeDeath(0.5F);
 
 		int portions = 1;
 
@@ -25,8 +25,8 @@ public class Food extends NativeComponent {
 		FoodTypes food;
 
 		/**
-		 * Eating behaviour data.
-		 * If {@code food} is {@linkplain com.snowball.embroider.enumerator.FoodTypes} or ROOT VEG you should specify
+		 * Eating behavior data. If {@code food} is WHOLE or ROOT VEG you should specify an {@linkplain CompDeath},
+		 * else if {@code food} is TO SHARE you should specify how many {@code portions} it can be shared.
 		 *
 		 * @param food type of food eaten
 		 * @param name name of the food to be displayed on diet info
@@ -42,14 +42,14 @@ public class Food extends NativeComponent {
 		}
 
 		/**	Sets a dying effect when eaten */
-		public Nutrient setDeath(IDeath death) {
+		public Nutrient setDeath(CompDeath death) {
 			if (death != null) this.death = death;
 			return this;
 		}
 
 		/** In how many portions this food can be shared */
 		public Nutrient setPortions(int portions) {
-			this.portions = Math.min(portions, 1);
+			this.portions = Math.max(portions, 1);
 			return this;
 		}
 
@@ -69,9 +69,10 @@ public class Food extends NativeComponent {
 	Nutrient[] foods;
 
 	/**
+	 * Constructs the FOOD component which is used by most living entities to set being eaten behaviour. <br>
+	 * This component must be used by all species that can be hunted or eaten.
 	 *
-	 *
-	 * @param foods types of
+	 * @param foods types of eating
 	 */
 	public Food(Nutrient[] foods) {
 		this.foods = Nutrient.get(foods);

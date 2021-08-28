@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture.food;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.entity.Entity;
+import com.snowball.embroider.Entity;
 import com.snowball.embroider.util.Utils;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class Fruiter extends NativeComponent {
 	 * @param stageCount amount of stages food source has
 	 */
 	public Fruiter(int initialStage, int stageCount) {
-		this.stageCount = Math.min(stageCount, 0);
+		this.stageCount = Math.max(stageCount, 0);
 		this.initialStage = initialStage;
 	}
 
@@ -39,7 +39,7 @@ public class Fruiter extends NativeComponent {
 	 * @param stageCount amount of stages food source has
 	 */
 	public Fruiter(float fruitTime, int initialStage, int stageCount) {
-		this.stageCount = Math.min(stageCount, 0);
+		this.stageCount = Math.max(stageCount, 0);
 		this.initialStage = initialStage;
 		this.time = fruitTime;
 	}

@@ -4,7 +4,7 @@ import blueprints.Blueprint;
 import com.snowball.embroider.component.IComponent;
 import componentArchitecture.ComponentLoader;
 import componentArchitecture.Requirement;
-import com.snowball.embroider.entity.Entity;
+import com.snowball.embroider.Entity;
 import com.snowball.mod.ModelConverter;
 import com.snowball.mod.load.Initializer;
 import utils.CSVReader;

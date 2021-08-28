@@ -2,7 +2,7 @@ package com.snowball.embroider.component.architecture;
 
 import com.snowball.embroider.component.IComponent;
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.entity.Entity;
+import com.snowball.embroider.Entity;
 import com.snowball.embroider.util.Utils;
 
 import java.util.ArrayList;

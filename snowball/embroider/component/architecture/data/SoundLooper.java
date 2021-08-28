@@ -1,15 +1,15 @@
 package com.snowball.embroider.component.architecture.data;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.entity.Entity;
+import com.snowball.embroider.Entity;
+import com.snowball.embroider.util.component.CompSound;
 import com.snowball.embroider.util.Utils;
-import com.snowball.embroider.enumerator.sound.ISound;
 
 import java.util.Collection;
 import java.util.Collections;
 
 public class SoundLooper extends NativeComponent {
-	ISound sound;
+	CompSound sound;
 	
 	float volume;
 	float range;
@@ -22,7 +22,7 @@ public class SoundLooper extends NativeComponent {
 	 * @param volume sounds volume multiplier
 	 * @see RandomSounder.SoundFile
 	 */
-	public SoundLooper(ISound sound, float range, float volume) {
+	public SoundLooper(CompSound sound, float range, float volume) {
 		this.volume = volume;
 		this.range = range;
 		this.sound = sound;
@@ -30,7 +30,7 @@ public class SoundLooper extends NativeComponent {
 	
 	@Override
 	public Collection<String> load(Entity entity) {
-		sound.loadSound().loadSound();
+		sound.loadSound();
 		return Collections.singleton(Utils.value("SOUND_LOOPER;sound", sound.getSound(), "range", range, "volume", volume));
 	}
 	

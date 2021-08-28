@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture.food;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.entity.Entity;
+import com.snowball.embroider.Entity;
 
 import java.util.Collection;
 import java.util.Collections;

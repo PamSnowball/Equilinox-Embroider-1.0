@@ -1,11 +1,11 @@
 package com.snowball.embroider.util.requirement;
 
-import com.snowball.embroider.util.component.IRequirement;
+import com.snowball.embroider.util.component.CompRequirement;
 
 import java.util.Collection;
 import java.util.Collections;
 
-public class ReqMovement implements IRequirement {
+public class ReqMovement implements CompRequirement {
 	float target;
 
 	public ReqMovement(float target) {

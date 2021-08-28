@@ -4,7 +4,7 @@ import breedingTrees.ReqInfo;
 import com.snowball.embroider.component.IComponent;
 import componentArchitecture.Requirement;
 import instances.Entity;
-import com.snowball.embroider.util.component.IRequirement;
+import com.snowball.embroider.util.component.CompRequirement;
 import com.snowball.mod.ModelConverter;
 import utils.CSVReader;
 
@@ -12,7 +12,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-public abstract class CustomRequirement implements Requirement, IRequirement {
+public abstract class CustomRequirement implements Requirement, CompRequirement {
 	private final Map<Boolean, String> labels;
 	private Map<Object, Boolean> req;
 	private final List<Object> os;

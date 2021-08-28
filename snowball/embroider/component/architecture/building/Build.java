@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture.building;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.entity.Entity;
+import com.snowball.embroider.Entity;
 import com.snowball.embroider.util.Utils;
 
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public class Build extends NativeComponent {
 		List<String> building = new ArrayList<>();
 
 		if (entity.toString().startsWith("es")) {
-			building.add(Utils.value("BUILD", Math.min(count, entity.getStages()), points));
+			building.add(Utils.value("BUILD", Math.max(count, entity.getStages()), points));
 
 			if (done != points) building.add(String.valueOf(done));
 		}

@@ -13,14 +13,14 @@ public class Breed {
 	float maturity;
 	float time;
 	
-	IRequirement[] requirements;
+	CompRequirement[] requirements;
 	
 	public Breed(float breedMaturity, float averageBreedTime) {
 		this.maturity = breedMaturity;
 		this.time = averageBreedTime;
 	}
 	
-	public Breed(float breedMaturity, float averageBreedTime, int parentId, int evolveLength, IRequirement[] requirements) {
+	public Breed(float breedMaturity, float averageBreedTime, int parentId, int evolveLength, CompRequirement[] requirements) {
 		this.maturity = breedMaturity;
 		this.time = averageBreedTime;
 		this.parentId = parentId;
@@ -34,7 +34,7 @@ public class Breed {
 		breed.add(Utils.value("breedMat" + maturity + "breedTime" + time + "parentId" + parentId));
 		if (parentId >= 0) {
 			breed.add("time;" + count + ';');
-			for (IRequirement requirement : requirements) {
+			for (CompRequirement requirement : requirements) {
 				breed.addAll(requirement.requirement());
 				breed.add(";");
 			}

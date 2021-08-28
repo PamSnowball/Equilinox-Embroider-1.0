@@ -1,4 +1,4 @@
-package com.snowball.embroider.entity;
+package com.snowball.embroider;
 
 import com.snowball.embroider.component.IComponent;
 import com.snowball.mod.load.Initializer;
@@ -11,20 +11,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Entity implements IClassifier {
-	private final WaterData water;
+	private boolean aquatic;
 
 	private final String classification;
 
 	private final String name;
 
+	private final float size;
+
 	protected boolean alwaysVisible = false;
+	protected boolean hasCustomIcon = false;
 	protected boolean randomize = false;
-	protected boolean hasCustomIcon;
 	protected boolean material;
-	protected boolean grows;
 
 	protected float iconSize;
 	protected float iconY;
+	protected float height;
 	
 	protected int mainStage = -1;
 
@@ -38,10 +40,7 @@ public class Entity implements IClassifier {
 	protected List<String> components = new ArrayList<>();
 	protected List<String> newEntity = new ArrayList<>();
 
-	public Entity(int id, String name, IClassifier classification, float size, int stages, WaterData water) {
-		this.setSpecialData(null);
-		this.setIconData(null);
-
+	public Entity(int id, String name, IClassifier classification, float size, int stages) {
 		this.stages = stages;
 
 		this.classification = classification.toString();
@@ -49,29 +48,34 @@ public class Entity implements IClassifier {
 		this.id = 10000 + id;
 
 		this.name = name;
-		this.water = water;
+		this.aquatic = false;
 
-		firstLine(Math.min(size, 0.5F));
-		
-		pastLines(classification.toString(), water.height);
+		this.size = size;
 	}
 
-	public final void setSpecialData(SpecialData special) {
-		if (special != null) {
-			mainStage = Math.min(special.stage, 0);
+	void init() {
+		firstLine(Math.max(size, 0));
 
-			this.alwaysVisible = special.visible;
-			this.randomize = special.random;
-		}
+		pastLines(classification, height);
 	}
 
-	public final void setIconData(IconData icon) {
-		if (icon != null) {
-			iconSize = Math.min(icon.size, 0.1F);
-			iconY = Math.min(icon.y, 0.1F);
+	protected final void setAquatic(float height) {
+		this.height = height;
+		this.aquatic = true;
+	}
 
-			this.hasCustomIcon = true;
-		}
+	public final void setSpecialData(int stage, boolean random, boolean visible) {
+		mainStage = Math.max(stage, 0);
+
+		this.alwaysVisible = visible;
+		this.randomize = random;
+	}
+
+	public final void setIconData(float size, float y) {
+		iconSize = Math.max(size, 0);
+		iconY = Math.max(y, 0);
+
+		this.hasCustomIcon = true;
 	}
 
 	public List<String> load() {
@@ -104,40 +108,6 @@ public class Entity implements IClassifier {
 
 	public int getStages() {
 		return stages;
-	}
-
-	public static class IconData {
-		final float size;
-		final float y;
-		
-		public IconData(float iconSize, float iconY) {
-			this.size = iconSize;
-			this.y = iconY;
-		}
-	}
-	
-	public static class SpecialData {
-		final boolean visible;
-		final boolean random;
-
-		final int stage;
-
-		public SpecialData(int mainStage, boolean randomize, boolean alwaysVisible) {
-			this.visible = alwaysVisible;
-			this.random = randomize;
-			this.stage = mainStage;
-		}
-	}
-
-	public static class WaterData {
-		final boolean aquatic;
-
-		final float height;
-
-		public WaterData(boolean aquatic, float height) {
-			this.aquatic = aquatic;
-			this.height = height;
-		}
 	}
 
 	public static class MaterialColor {
@@ -173,7 +143,7 @@ public class Entity implements IClassifier {
 		newEntity.add(classification);
 		newEntity.add("\n");
 		
-		newEntity.add(Utils.value(height <= 0 && water.aquatic ? 1 : 0, height >= 0 ? 1 : 0, height != 0 ? height : null));
+		newEntity.add(Utils.value(height <= 0 && aquatic ? 1 : 0, height >= 0 ? 1 : 0, height != 0 ? height : ""));
 
 		newEntity.add("\n");
 	}
@@ -197,10 +167,6 @@ public class Entity implements IClassifier {
 	
 	public void setComponents(List<String> components) {
 		this.components = components;
-	}
-
-	public void setGrows(boolean grows) {
-		this.grows = grows;
 	}
 	
 	public boolean hasMaterial() {
@@ -228,11 +194,11 @@ public class Entity implements IClassifier {
 	}
 
 	public boolean isAquatic() {
-		return water.aquatic && water.height <= 0;
+		return aquatic && height <= 0;
 	}
 
 	public boolean isLand() {
-		return water.height >= 0;
+		return height >= 0;
 	}
 
 	public static String getClassification(int id) {

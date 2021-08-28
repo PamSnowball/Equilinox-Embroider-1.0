@@ -2,7 +2,7 @@ package com.snowball.mod;
 
 import com.snowball.mod.load.Initializer;
 import com.snowball.embroider.util.Utils;
-import com.snowball.embroider.entity.Entity;
+import com.snowball.embroider.Entity;
 
 import java.io.*;
 import java.time.LocalDate;

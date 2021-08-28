@@ -14,7 +14,7 @@ public class Environment {
 
 	private static final String IN = "influence;";
 	
-	public static class EnvironmentAltitude implements IEnvironment {
+	public static class EnvironmentAltitude implements CompEnvironment {
 		float influence;
 		
 		int min;
@@ -32,7 +32,7 @@ public class Environment {
 		}
 	}	
 	
-	public static class EnvironmentLikedBiome implements IEnvironment {
+	public static class EnvironmentLikedBiome implements CompEnvironment {
 		boolean barren;
 		
 		Biomes[] biomes;
@@ -61,7 +61,7 @@ public class Environment {
 		}
 	}
 	
-	public static class EnvironmentUnsuitableBiome implements IEnvironment {
+	public static class EnvironmentUnsuitableBiome implements CompEnvironment {
 
 		Biomes[] biomes;
 		
@@ -84,7 +84,7 @@ public class Environment {
 		}
 	}
 	
-	public static class EnvironmentFavouriteBiome implements IEnvironment {
+	public static class EnvironmentFavouriteBiome implements CompEnvironment {
 		Biomes biome;
 		
 		float influence;
@@ -100,7 +100,7 @@ public class Environment {
 		}
 	}
 	
-	public static class EnvironmentLikedSpecies implements IEnvironment {
+	public static class EnvironmentLikedSpecies implements CompEnvironment {
 		IClassifier[] species;
 		
 		float influence;
@@ -122,7 +122,7 @@ public class Environment {
 		}
 	}
 	
-	public static class EnvironmentDislikedSpecies implements IEnvironment {
+	public static class EnvironmentDislikedSpecies implements CompEnvironment {
 		IClassifier[] species;
 		
 		float influence;

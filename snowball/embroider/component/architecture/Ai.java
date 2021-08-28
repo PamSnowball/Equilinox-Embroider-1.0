@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.entity.Entity;
+import com.snowball.embroider.Entity;
 import com.snowball.embroider.util.Utils;
 
 import java.util.ArrayList;
@@ -85,7 +85,7 @@ public class Ai extends NativeComponent {
 		 * @param circleTime perching minimum time in seconds
 		 */
 		public NativeComponent setCircleBehaviour(float circleRot, float circleTime) {
-			this.circleTime = Math.min(circleTime, 0);
+			this.circleTime = Math.max(circleTime, 0);
 			this.circleRot = circleRot;
 			return this;
 		}
@@ -120,8 +120,8 @@ public class Ai extends NativeComponent {
 		public WalkingBirdAi(float minIdleTime, float maxIdleTime, boolean swims) {
 			super("WALKING_BIRD");
 
-			this.minIdleTime = Math.min(minIdleTime, 0);
-			this.maxIdleTime = Math.min(maxIdleTime, 0);
+			this.minIdleTime = Math.max(minIdleTime, 0);
+			this.maxIdleTime = Math.max(maxIdleTime, 0);
 
 			this.swims = !swims;
 		}

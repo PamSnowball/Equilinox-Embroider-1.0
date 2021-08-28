@@ -1,6 +1,6 @@
 package com.snowball.embroider.component;
 
-import com.snowball.embroider.entity.Entity;
+import com.snowball.embroider.Entity;
 
 import java.util.Collection;
 

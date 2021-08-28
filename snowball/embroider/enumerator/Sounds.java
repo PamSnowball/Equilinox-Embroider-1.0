@@ -1,8 +1,9 @@
-package com.snowball.embroider.enumerator.sound;
+package com.snowball.embroider.enumerator;
 
 import com.snowball.embroider.component.blueprint.CustomSound;
+import com.snowball.embroider.util.component.CompSound;
 
-public enum Sounds implements ISound {
+public enum Sounds implements CompSound {
 	BEAR_ROAR_2("bearRoar2"),
 	SHEEP_BAA_1("sheepBaa2"),
 	SHEEP_BAA_0("sheepBaa"),
@@ -44,7 +45,7 @@ public enum Sounds implements ISound {
 	GOAT("goat0"),
 	SPLASH("splash");
 	
-	private String sound;
+	private final String sound;
 		
 	Sounds(String sound) {
 		this.sound = sound;
@@ -56,7 +57,5 @@ public enum Sounds implements ISound {
 	}
 
 	@Override
-	public CustomSound loadSound() {
-		return null;
-	}
+	public void loadSound() { /* loads custom sound */}
 }

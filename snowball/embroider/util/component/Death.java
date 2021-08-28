@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Death {
-	public static class FadeDeath implements IDeath {
+	public static class FadeDeath implements CompDeath {
 		float fadeTime;
 			
 		public FadeDeath(float fadeTime) {
@@ -20,7 +20,7 @@ public class Death {
 		}
 	}
 	
-	public static class FallDeath implements IDeath {
+	public static class FallDeath implements CompDeath {
 		Particle particle;
 		
 		boolean hasParticleEffect;
@@ -64,7 +64,7 @@ public class Death {
 		}
 	}
 	
-	public static class FloatDeath implements IDeath {
+	public static class FloatDeath implements CompDeath {
 		float deathRot = 180;
 		
 		public FloatDeath() {}
@@ -78,7 +78,7 @@ public class Death {
 		}
 	}
 
-	public static class SpawnDeath implements IDeath {
+	public static class SpawnDeath implements CompDeath {
 		boolean growth;
 		int min;
 		int max;
@@ -96,7 +96,7 @@ public class Death {
 		}
 	}
 	
-	public static class UpDownDeath implements IDeath {
+	public static class UpDownDeath implements CompDeath {
 		Particle particle;
 		
 		float speed;
@@ -116,7 +116,7 @@ public class Death {
 		}
 	}
 	
-	public static class ParticleDeath implements IDeath {
+	public static class ParticleDeath implements CompDeath {
 		Particle particle;
 		
 		public ParticleDeath(Particle particle) {

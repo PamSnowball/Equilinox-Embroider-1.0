@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture.food;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.entity.Entity;
+import com.snowball.embroider.Entity;
 import com.snowball.embroider.enumerator.classification.IClassifier;
 import com.snowball.embroider.util.Utils;
 
@@ -28,7 +28,7 @@ public class FruitFall extends NativeComponent {
 	 * @param spawnRadius radius fruit can fall
 	 */
 	public FruitFall(IClassifier fruit, float averageFruitTime, float spawnHeight, float spawnRadius) {
-		this.time = Math.min(averageFruitTime, 0) / 30;
+		this.time = Math.max(averageFruitTime, 0) / 30;
 		this.fruit = fruit;
 		this.height = spawnHeight;
 		this.radius = spawnRadius;
