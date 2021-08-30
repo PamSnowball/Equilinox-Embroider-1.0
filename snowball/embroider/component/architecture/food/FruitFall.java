@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture.food;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 import com.snowball.embroider.enumerator.classification.IClassifier;
 import com.snowball.embroider.util.Utils;
 
@@ -35,7 +35,7 @@ public class FruitFall extends NativeComponent {
 	}
 	
 	@Override
-	public Collection<String> load(Entity entity) {
+	public Collection<String> load(CustomEntity entity) {
 		boolean isFruit = fruit.getType().startsWith("ef");
 
 		if (isFruit) return Collections.singleton(Utils.value("FRUIT_FALL;fruitID", fruit.getId(), "spawnTime", time, "spawnHeight", height, "spawnRadius", radius));
@@ -45,6 +45,6 @@ public class FruitFall extends NativeComponent {
 	
 	@Override
 	public int getId() {
-		return 28;
+		return 31;
 	}
 }

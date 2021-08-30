@@ -12,7 +12,7 @@ public class ReqFruitFall implements CompRequirement {
 		this.target = target;
 	}
 	
-	public Collection<String> requirement() {
+	public Collection<String> req() {
 		return Collections.singleton("FRUIT_FALL;" + target + ';');
 	}
 }

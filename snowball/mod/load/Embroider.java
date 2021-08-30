@@ -4,7 +4,7 @@ import classification.Classifier;
 import com.snowball.embroider.component.blueprint.Comp;
 import componentArchitecture.ComponentType;
 import resourceManagement.BlueprintRepository;
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 import com.snowball.embroider.enumerator.classification.IClassifier;
 
 import java.lang.reflect.Method;
@@ -44,8 +44,8 @@ class Embroider {
 		return classifications;
 	}
 
-	static void addEntity(Entity entity) {
-		if (Entity.isValid(entity)) {
+	static void addEntity(CustomEntity entity) {
+		if (CustomEntity.isValid(entity)) {
 			BlueprintRepository.addCustomEntity(entity);
 		}
 	}

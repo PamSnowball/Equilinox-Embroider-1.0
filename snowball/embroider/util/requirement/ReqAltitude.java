@@ -16,7 +16,7 @@ public class ReqAltitude implements CompRequirement {
 	}
 	
 	@Override
-	public Collection<String> requirement() {
+	public Collection<String> req() {
 		return Collections.singleton(Utils.value("LIFE;type;2;enviroType;3;min", min, "max", max));
 	}
 }

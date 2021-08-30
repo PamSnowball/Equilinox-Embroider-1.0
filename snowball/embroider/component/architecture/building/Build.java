@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture.building;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 import com.snowball.embroider.util.Utils;
 
 import java.util.ArrayList;
@@ -27,13 +27,13 @@ public class Build extends NativeComponent {
 	}
 
 	/** Build points required for the building to reach last model stage */
-	public NativeComponent setFullyEarly(int fullyBuildAt) {
+	public Build setFullyEarly(int fullyBuildAt) {
 		this.done = fullyBuildAt;
 		return this;
 	}
 	
 	@Override
-	public Collection<String> load(Entity entity) {
+	public Collection<String> load(CustomEntity entity) {
 		List<String> building = new ArrayList<>();
 
 		if (entity.toString().startsWith("es")) {
@@ -47,6 +47,6 @@ public class Build extends NativeComponent {
 
 	@Override
 	public int getId() {
-		return 41;
+		return 45;
 	}
 }

@@ -18,7 +18,7 @@ public class ReqSpecieInBiome implements CompRequirement {
 	}
 		
 	@Override
-	public Collection<String> requirement() {
+	public Collection<String> req() {
 		return Collections.singleton(Utils.value("LIFE;type;2;enviroType;44;specie", classification, "count", count));
 	}
 }

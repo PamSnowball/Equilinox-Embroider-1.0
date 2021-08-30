@@ -1,6 +1,8 @@
 package com.snowball.embroider.enumerator;
 
-public enum Biomes {
+import com.snowball.embroider.util.component.IBiome;
+
+public enum Biomes implements IBiome {
 	GRASSLAND(0),
 	FOREST(1),
 	RIVER_BED(2),
@@ -12,7 +14,7 @@ public enum Biomes {
 	WOODLAND(8),
 	TROPICAL(9);
 	
-	private int id;
+	private final int id;
 	
 	Biomes(int id) {
 		this.id = id;

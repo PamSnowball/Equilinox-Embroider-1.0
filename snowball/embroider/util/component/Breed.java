@@ -1,5 +1,6 @@
 package com.snowball.embroider.util.component;
 
+import com.snowball.embroider.enumerator.classification.IClassifier;
 import com.snowball.embroider.util.Utils;
 
 import java.util.ArrayList;
@@ -20,10 +21,10 @@ public class Breed {
 		this.time = averageBreedTime;
 	}
 	
-	public Breed(float breedMaturity, float averageBreedTime, int parentId, int evolveLength, CompRequirement[] requirements) {
+	public Breed(float breedMaturity, float averageBreedTime, IClassifier classification, int evolveLength, CompRequirement[] requirements) {
 		this.maturity = breedMaturity;
 		this.time = averageBreedTime;
-		this.parentId = parentId;
+		this.parentId = classification.getId();
 		this.count = evolveLength;
 		this.requirements = requirements;	
 	}
@@ -35,7 +36,7 @@ public class Breed {
 		if (parentId >= 0) {
 			breed.add("time;" + count + ';');
 			for (CompRequirement requirement : requirements) {
-				breed.addAll(requirement.requirement());
+				breed.addAll(requirement.req());
 				breed.add(";");
 			}
 		}

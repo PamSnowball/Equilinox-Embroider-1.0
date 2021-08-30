@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture.unique;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 import com.snowball.embroider.util.Vector;
 import com.snowball.embroider.util.Utils;
 
@@ -21,12 +21,12 @@ public class Spitting  extends NativeComponent {
 	}
 	
 	@Override
-	public Collection<String> load(Entity entity) {
+	public Collection<String> load(CustomEntity entity) {
 		return Collections.singleton(Utils.value("SPITTING;spitPosition", position));
 	}
 
 	@Override
 	public int getId() {
-		return 4;
+		return 6;
 	}
 }

@@ -35,12 +35,12 @@ public class Environment {
 	public static class EnvironmentLikedBiome implements CompEnvironment {
 		boolean barren;
 		
-		Biomes[] biomes;
+		IBiome[] biomes;
 		
 		float ideal;
 		float influence;
 
-		public EnvironmentLikedBiome(boolean growsBarren, Biomes[] likedBiomes, float ideal, float healthInfluence) {
+		public EnvironmentLikedBiome(boolean growsBarren, IBiome[] likedBiomes, float ideal, float healthInfluence) {
 			this.influence = healthInfluence;
 			this.barren = growsBarren;
 			this.biomes = likedBiomes;
@@ -53,7 +53,7 @@ public class Environment {
 			
 			if (biomes != null) { 
 				environment.add(Utils.value(I, 2, "barren", barren ? 1 : 0, "likedBiomes", biomes.length));
-				for (Biomes biome : biomes) environment.add(biome.getId() + ";");
+				for (IBiome biome : biomes) environment.add(biome.getId() + ";");
 				environment.add(Utils.value("idealFactor", ideal, "influence", influence + ';'));
 			}
 			
@@ -62,12 +62,11 @@ public class Environment {
 	}
 	
 	public static class EnvironmentUnsuitableBiome implements CompEnvironment {
-
-		Biomes[] biomes;
+		IBiome[] biomes;
 		
 		float influence;
 		
-		public EnvironmentUnsuitableBiome(Biomes[] dislikedBiomes, float healthInfluence) {
+		public EnvironmentUnsuitableBiome(IBiome[] dislikedBiomes, float healthInfluence) {
 			this.biomes = dislikedBiomes;
 			this.influence = healthInfluence;
 		}
@@ -77,7 +76,7 @@ public class Environment {
 			List<String> environment = new ArrayList<>();
 			
 			environment.add(I + 3 + ";dislikedBiomes;" + biomes.length);
-			for (Biomes biome : biomes) environment.add(biome.getId() + ";");
+			for (IBiome biome : biomes) environment.add(biome.getId() + ";");
 			environment.add(IN + influence + ';');
 			
 			return environment;
@@ -85,11 +84,11 @@ public class Environment {
 	}
 	
 	public static class EnvironmentFavouriteBiome implements CompEnvironment {
-		Biomes biome;
+		IBiome biome;
 		
 		float influence;
 		
-		public EnvironmentFavouriteBiome(Biomes favouriteBiome, float healthInfluence) {
+		public EnvironmentFavouriteBiome(IBiome favouriteBiome, float healthInfluence) {
 			this.biome = favouriteBiome;
 			this.influence = healthInfluence;
 		}

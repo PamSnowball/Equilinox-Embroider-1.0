@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture.special;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 import com.snowball.embroider.enumerator.classification.IClassifier;
 import com.snowball.embroider.util.Utils;
 
@@ -29,7 +29,7 @@ public class Nesting extends NativeComponent {
 	}
 	
 	@Override
-	public Collection<String> load(Entity entity) {
+	public Collection<String> load(CustomEntity entity) {
 		return Collections.singleton(Utils.value("NESTING;index", classification.getClassification(), "hatchStage", stage, "decreasesModel", model ? 1 : 0));
 	}
 

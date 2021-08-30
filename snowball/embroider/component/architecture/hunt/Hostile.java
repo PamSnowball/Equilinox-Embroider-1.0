@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture.hunt;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 import com.snowball.embroider.enumerator.classification.IClassifier;
 import com.snowball.embroider.util.Utils;
 
@@ -30,12 +30,12 @@ public class Hostile extends NativeComponent {
 
 
 	@Override
-	public Collection<String> load(Entity entity) {
+	public Collection<String> load(CustomEntity entity) {
 		return Collections.singleton(Utils.value("HOSTILE;time", time, "enemy", enemy.getClassification(), "notifyPrey", notify ? 1 : 0));
 	}
 
 	@Override
 	public int getId() {
-		return 1;
+		return 2;
 	}
 }

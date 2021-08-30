@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 import com.snowball.mod.ModelConverter;
 import com.snowball.embroider.util.component.Death.FadeDeath;
 import com.snowball.embroider.util.component.CompDeath;
@@ -78,7 +78,7 @@ public class Food extends NativeComponent {
 		this.foods = Nutrient.get(foods);
 	}
 		
-	public Collection<String> load(Entity entity) {
+	public Collection<String> load(CustomEntity entity) {
 		List<String> food = new ArrayList<>();
 
 		if (foods.length > 0) {
@@ -95,6 +95,6 @@ public class Food extends NativeComponent {
 	
 	@Override
 	public int getId() {
-		return 32;
+		return 33;
 	}
 }

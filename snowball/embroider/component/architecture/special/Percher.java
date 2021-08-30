@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture.special;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -19,7 +19,7 @@ public class Percher extends NativeComponent {
 	}
 	
 	@Override
-	public Collection<String> load(Entity entity) {
+	public Collection<String> load(CustomEntity entity) {
 		return Collections.singleton("PERCHER;dieWhenPerchRemoved;" + (die ? 1 : 0));
 	}
 

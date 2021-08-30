@@ -4,7 +4,7 @@ import blueprints.Blueprint;
 import com.snowball.embroider.component.IComponent;
 import componentArchitecture.ComponentLoader;
 import componentArchitecture.Requirement;
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 import com.snowball.mod.ModelConverter;
 import com.snowball.mod.load.Initializer;
 import utils.CSVReader;
@@ -48,7 +48,7 @@ public abstract class Comp implements ComponentLoader, IComponent {
 	}
 	
 	@Override
-	public Collection<String> load(Entity entity) {
+	public Collection<String> load(CustomEntity entity) {
 		return BlueprintUtils.load(os, labels, name);
 	}
 

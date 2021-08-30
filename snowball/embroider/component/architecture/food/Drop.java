@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture.food;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 import com.snowball.embroider.enumerator.classification.IClassifier;
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class Drop extends NativeComponent {
 	}
 	
 	@Override
-	public Collection<String> load(Entity entity) {
+	public Collection<String> load(CustomEntity entity) {
 		boolean isNonLiving = dropped.getType().startsWith("e");
 
 		if (isNonLiving) return Collections.singleton("DROP;itemId;" + dropped.getId());
@@ -30,6 +30,6 @@ public class Drop extends NativeComponent {
 
 	@Override
 	public int getId() {
-		return 7;
+		return 8;
 	}
 }

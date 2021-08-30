@@ -7,10 +7,10 @@ import com.snowball.embroider.util.Utils;
 import resourceManagement.BlueprintRepository;
 import com.snowball.embroider.enumerator.classification.IClassifier;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
-public class Entity implements IClassifier {
+public class CustomEntity implements IClassifier {
 	private boolean aquatic;
 
 	private final String classification;
@@ -35,12 +35,10 @@ public class Entity implements IClassifier {
 	
 	private final List<IComponent> comps = new ArrayList<>();
 	
-	private final List<Integer> ids = new ArrayList<>();
-	
 	protected List<String> components = new ArrayList<>();
 	protected List<String> newEntity = new ArrayList<>();
 
-	public Entity(int id, String name, IClassifier classification, float size, int stages) {
+	public CustomEntity(int id, String name, IClassifier classification, float size, int stages) {
 		this.stages = stages;
 
 		this.classification = classification.toString();
@@ -82,7 +80,7 @@ public class Entity implements IClassifier {
 		return newEntity;
 	}
 
-	public static boolean isValid(Entity entity) {
+	public static boolean isValid(CustomEntity entity) {
 		boolean valid = true;
 
 		if (entity.id <= 10000) {
@@ -90,7 +88,7 @@ public class Entity implements IClassifier {
 			valid = false;
 		}
 
-		for (Entity custom : BlueprintRepository.getCustomEntities()) {
+		for (CustomEntity custom : BlueprintRepository.getCustomEntities()) {
 			if (custom.getId() == entity.id) {
 				System.err.println(entity.getName() + " error: Id conflict with entity " + custom.getName());
 				valid = false;
@@ -104,6 +102,15 @@ public class Entity implements IClassifier {
 		}
 
 		return valid;
+	}
+
+	private List<String> organize() {
+		Map<Integer, String> map = new HashMap<>();
+		for (int i = 0; i < comps.size(); i++) {
+			map.put(comps.get(i).getId(), components.get(i));
+		}
+
+		return new ArrayList<>(map.values());
 	}
 
 	public int getStages() {
@@ -156,19 +163,15 @@ public class Entity implements IClassifier {
 		return name;
 	}
 	
-	protected final void componentLoader(IComponent component) {
-		comps.add(component);
-		Utils.append(components, new ArrayList<>(component.load(this)));
+	protected final CustomEntity componentLoader(IComponent component) {
+		comps.add(component); Utils.append(new ArrayList<>(component.load(this)), components);
+		return this;
 	}
 	
 	public List<String> loadComponents() {
-		return components;
+		return organize();
 	}
-	
-	public void setComponents(List<String> components) {
-		this.components = components;
-	}
-	
+
 	public boolean hasMaterial() {
 		return this.material;
 	}
@@ -202,12 +205,8 @@ public class Entity implements IClassifier {
 	}
 
 	public static String getClassification(int id) {
-		for (Entity entity : Initializer.getEntities()) if (entity.getId() == id) return entity.getClassification();
+		for (CustomEntity entity : Initializer.getEntities()) if (entity.getId() == id) return entity.getClassification();
 		return null;
-	}
-	
-	public List<Integer> getComponentIds() {
-		return ids;
 	}
 
 	public <T extends IComponent> boolean hasComponent(Class<T> clazz) {

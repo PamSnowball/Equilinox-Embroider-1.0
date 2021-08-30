@@ -1,6 +1,6 @@
 package com.snowball.embroider.entity;
 
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 import com.snowball.embroider.component.architecture.*;
 import com.snowball.embroider.enumerator.classification.specific.AnimalClassification;
 import com.snowball.embroider.util.Vector;
@@ -18,7 +18,7 @@ import com.snowball.embroider.util.component.CompEnvironment;
 import com.snowball.embroider.util.component.CompRequirement;
 
 //This is my Entity Class :D
-public class EntityWhaleShark extends Entity {
+public class EntityWhaleShark extends CustomEntity {
 	//My Entity Constructor :D
 	@SuppressWarnings("unused")
 	public EntityWhaleShark() {
@@ -66,7 +66,7 @@ public class EntityWhaleShark extends Entity {
 		 * The third parameter is an array of vectors with the RGB color information.
 		 * The fourth parameter is an array of prices, it must have a price for each color.
 		 */
-		this.componentLoader(new Material(this, false, new MaterialColor[] { purple, brown, grey, blue }));
+		this.componentLoader(new Material(false, new MaterialColor[] { purple, brown, grey, blue }));
 		
 		//DAMN, look at this giant description.
 		String description = "Whale sharks are slow-moving, filter-feeding sharks, just like vacuum cleaners, they clean the oceans of krill, plankton and small fish";
@@ -121,7 +121,7 @@ public class EntityWhaleShark extends Entity {
 		 * The last parameter is the requirements for being healthy and live longer.
 		 */
 		this.componentLoader(new Life(3, 90, null,
-				new Breed(30, 30.385346F, AnimalClassification.PIKE.getId(), 150, evolveRequirements),
+				new Breed(30, 30.385346F, AnimalClassification.PIKE, 150, evolveRequirements),
 				new Death.FloatDeath(), environmentRequirements));
 		
 		/*
@@ -146,7 +146,7 @@ public class EntityWhaleShark extends Entity {
 		 * The last parameter is the swim factor is important for creatures that also get out of the water, it determines how faster compared to how fast they walk, as an example, 
 		 * beavers go at a speed of 0.5F and their factor is 1.8, it means that, on land they walk in 0.5 speed and when swimming they go at 0.5 * 1.8 = 0.9 speed, pretty fast.
 		 */
-		this.componentLoader(new Movement.SwimmerMovement(0.2F, 2, -1, 1, 1.5F, 3, false, 1));
+		this.componentLoader(new Movement.AxisMovement(0.2F, 2, -1, 1, 1.5F).setSwimmingHeight(3));
 		
 		//This is the AI of our beautiful entity, this is the last and simplest component.
 		this.componentLoader(new Ai.SwimAi());

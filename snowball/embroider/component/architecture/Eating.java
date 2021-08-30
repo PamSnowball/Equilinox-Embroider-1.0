@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 import com.snowball.embroider.util.Utils;
 import com.snowball.embroider.enumerator.Animations;
 import com.snowball.embroider.enumerator.FoodTypes;
@@ -79,20 +79,20 @@ public class Eating extends NativeComponent {
 	 * @param eatingAi if it is {@code 0} then it is standard eating, <br>
 	 *                    if {@code 1} then it is fish eating AI, otherwise it is bird eating AI.
 	 */
-	public NativeComponent movementData(boolean runsToFood, int eatingAi) {
+	public Eating movementData(boolean runsToFood, int eatingAi) {
 		runs = runsToFood;
 		ai = eatingAi;
 		return this;
 	}
 
 	/** Use it if it has an egg stage, it makes so hunger is ignored while egg */
-	public NativeComponent hasEggStage() {
+	public Eating hasEggStage() {
 		egg = true;
 		return this;
 	}
 
 	@Override
-	public Collection<String> load(Entity entity) {
+	public Collection<String> load(CustomEntity entity) {
 		List<String> eat = new ArrayList<>();
 
 		eat.add(Utils.value("maxHunger", maxHunger, "hungerPerHour", hunger, "eatRadius", radius));
@@ -110,6 +110,6 @@ public class Eating extends NativeComponent {
 	
 	@Override
 	public int getId() {
-		return 20;
+		return 19;
 	}
 }

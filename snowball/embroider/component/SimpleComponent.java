@@ -1,6 +1,6 @@
 package com.snowball.embroider.component;
 
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -15,7 +15,7 @@ public class SimpleComponent  extends NativeComponent {
 	}
 	
 	@Override
-	public Collection<String> load(Entity entity) {
+	public Collection<String> load(CustomEntity entity) {
 		return Collections.singleton(name);
 	}
 

@@ -4,7 +4,7 @@ import aiComponent.Ai;
 import aiComponent.AiProgramBlueprint;
 import aiComponent.AiProgramType;
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 import componentArchitecture.ComponentBundle;
 import utils.CSVReader;
 
@@ -55,7 +55,7 @@ public abstract class CustomAi extends NativeComponent implements AiProgramBluep
 	}
 
 	@Override
-	public Collection<String> load(Entity entity) {
+	public Collection<String> load(CustomEntity entity) {
 		return Collections.singleton("AI;" + name);
 	}
 

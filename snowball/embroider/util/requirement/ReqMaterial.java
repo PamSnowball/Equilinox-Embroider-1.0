@@ -14,7 +14,7 @@ public class ReqMaterial implements CompRequirement {
 	}
 
 	@Override
-	public Collection<String> requirement() {
+	public Collection<String> req() {
 		return Collections.singleton("MATERIAL;col;" + colour);
 	}
 }

@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture.special;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 import com.snowball.embroider.util.Vector;
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class Equip extends NativeComponent {
 	}
 	
 	@Override
-	public Collection<String> load(Entity entity) {
+	public Collection<String> load(CustomEntity entity) {
 		Vector[] stages = new Vector[entity.getStages()];
 
 		System.arraycopy(positions, 0, stages, 0, stages.length);

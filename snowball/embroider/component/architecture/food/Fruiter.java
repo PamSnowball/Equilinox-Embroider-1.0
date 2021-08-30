@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture.food;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 import com.snowball.embroider.util.Utils;
 
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ public class Fruiter extends NativeComponent {
 		this.time = fruitTime;
 	}
 	
-	public Collection<String> load(Entity entity) {
+	public Collection<String> load(CustomEntity entity) {
 		List<String> fruiter = new ArrayList<>();
 
 		fruiter.add(Utils.value("FRUITER;modelStage", initialStage, "stageCount", stageCount));

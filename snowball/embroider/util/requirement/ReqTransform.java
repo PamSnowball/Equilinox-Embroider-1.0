@@ -12,7 +12,7 @@ public class ReqTransform implements CompRequirement {
 		this.size = targetSize;
 	}
 	
-	public Collection<String> requirement() {
+	public Collection<String> req() {
 		return Collections.singleton("TRANSFORM;" + size + ';');
 	}
 }

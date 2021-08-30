@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture.special;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -22,12 +22,12 @@ public class Flinging extends NativeComponent {
 	}
 	
 	@Override
-	public Collection<String> load(Entity entity) {
+	public Collection<String> load(CustomEntity entity) {
 		return Collections.singleton("FLINGING;minTime;" + min + ";maxTime;" + max);
 	}
 	
 	@Override
 	public int getId() {
-		return 22;
+		return 23;
 	}
 }

@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture.data;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 import com.snowball.embroider.util.component.CompSound;
 import com.snowball.embroider.util.Utils;
 
@@ -29,13 +29,13 @@ public class SoundLooper extends NativeComponent {
 	}
 	
 	@Override
-	public Collection<String> load(Entity entity) {
+	public Collection<String> load(CustomEntity entity) {
 		sound.loadSound();
 		return Collections.singleton(Utils.value("SOUND_LOOPER;sound", sound.getSound(), "range", range, "volume", volume));
 	}
 	
 	@Override
 	public int getId() {
-		return 35;
+		return 36;
 	}
 }

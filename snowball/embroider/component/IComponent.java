@@ -1,11 +1,11 @@
 package com.snowball.embroider.component;
 
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 
 import java.util.Collection;
 
 public interface IComponent {
-	Collection<String> load(Entity entity);
+	Collection<String> load(CustomEntity entity);
 
 	int getId();
 

@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture.special;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 import com.snowball.embroider.util.Vector;
 import com.snowball.embroider.util.Utils;
 
@@ -70,12 +70,12 @@ public class Wood extends NativeComponent {
 	}
 	
 	@Override
-	public Collection<String> load(Entity entity) {
+	public Collection<String> load(CustomEntity entity) {
 		return Collections.singleton(Utils.value("cutTime", time, "barkFactor", bark, "colour", colour.toString()));
 	}
 
 	@Override
 	public int getId() {
-		return 29;
+		return 32;
 	}
 }

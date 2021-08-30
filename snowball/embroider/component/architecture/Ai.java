@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 import com.snowball.embroider.util.Utils;
 
 import java.util.ArrayList;
@@ -16,13 +16,13 @@ public class Ai extends NativeComponent {
 		this.id = id;
 	}
 
-	public Collection<String> load(Entity entity) {
+	public Collection<String> load(CustomEntity entity) {
 		return Collections.singleton("AI;" + id);
 	}
 
 	@Override
 	public int getId() {
-		return 31;
+		return 30;
 	}
 
 	public static class PatrolAi extends Ai {
@@ -39,14 +39,14 @@ public class Ai extends NativeComponent {
 		}
 
 		/** Sets minimum and maximum time in seconds the entity can be idol. */
-		public NativeComponent setIdleTime(float minIdleTime, float maxIdleTime) {
+		public PatrolAi setIdleTime(float minIdleTime, float maxIdleTime) {
 			this.maxIdleTime = maxIdleTime;
 			this.minIdleTime = minIdleTime;
 			return this;
 		}
 
 		@Override
-		public Collection<String> load(Entity entity) {
+		public Collection<String> load(CustomEntity entity) {
 			List<String> brain = new ArrayList<>(super.load(entity));
 
 			if (entity.getStages() == 2 && (minIdleTime != 5.0F || maxIdleTime != 10.0F)) {
@@ -84,14 +84,14 @@ public class Ai extends NativeComponent {
 		 * @param circleRot average rotation angle variation
 		 * @param circleTime perching minimum time in seconds
 		 */
-		public NativeComponent setCircleBehaviour(float circleRot, float circleTime) {
+		public BirdAi setCircleBehaviour(float circleRot, float circleTime) {
 			this.circleTime = Math.max(circleTime, 0);
 			this.circleRot = circleRot;
 			return this;
 		}
 
 		@Override
-		public Collection<String> load(Entity entity) {
+		public Collection<String> load(CustomEntity entity) {
 			List<String> brain = new ArrayList<>(super.load(entity));
 
 			if (entity.getStages() == 2 && (circleRot != 50.0F || circleTime != 2.0F)) {
@@ -127,7 +127,7 @@ public class Ai extends NativeComponent {
 		}
 
 		@Override
-		public Collection<String> load(Entity entity) {
+		public Collection<String> load(CustomEntity entity) {
 			List<String> brain = new ArrayList<>(super.load(entity));
 
 			if (entity.getStages() == 3) {
@@ -181,14 +181,14 @@ public class Ai extends NativeComponent {
 		}
 
 		/** Sets minimum time in seconds the entity can be idol */
-		public NativeComponent setIdleTime(float minIdleTime, float maxIdleTime) {
+		public MeerkatAi setIdleTime(float minIdleTime, float maxIdleTime) {
 			this.maxIdleTime = maxIdleTime;
 			this.minIdleTime = minIdleTime;
 			return this;
 		}
 
 		@Override
-		public Collection<String> load(Entity entity) {
+		public Collection<String> load(CustomEntity entity) {
 			List<String> brain = new ArrayList<>(super.load(entity));
 
 			if (entity.getStages() == 2 && (minIdleTime != 7.0F || maxIdleTime != 15.0F)) brain.add(Utils.value(";minIdleTime", minIdleTime, "maxIdleTime") + maxIdleTime);

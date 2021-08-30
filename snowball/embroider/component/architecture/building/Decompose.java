@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture.building;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -20,12 +20,12 @@ public class Decompose extends NativeComponent {
 	}
 	
 	@Override
-	public Collection<String> load(Entity entity) {
+	public Collection<String> load(CustomEntity entity) {
 		return Collections.singleton("DECOMPOSE;timePerLoss;" + loss);
 	}
 
 	@Override
 	public int getId() {
-		return 39;
+		return 41;
 	}
 }

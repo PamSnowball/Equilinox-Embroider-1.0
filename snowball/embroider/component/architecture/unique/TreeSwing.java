@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture.unique;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 import com.snowball.embroider.util.Vector;
 
 import java.util.Collection;
@@ -20,12 +20,12 @@ public class TreeSwing extends NativeComponent {
 	}
 	
 	@Override
-	public Collection<String> load(Entity entity) {
+	public Collection<String> load(CustomEntity entity) {
 		return Collections.singleton("TREE_SWING;handPos;" + position.toString());
 	}
 
 	@Override
 	public int getId() {
-		return 15;
+		return 18;
 	}
 }

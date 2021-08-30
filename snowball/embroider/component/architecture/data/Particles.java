@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture.data;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 import com.snowball.embroider.util.component.Particle;
 import com.snowball.embroider.util.Utils;
 
@@ -33,7 +33,7 @@ public class Particles extends NativeComponent {
 		this.particle = particle;
 	}
 
-	public Collection<String> load(Entity entity) {
+	public Collection<String> load(CustomEntity entity) {
 		List<String> particles = new ArrayList<>();
 		
 		if (particle != null) {
@@ -56,6 +56,6 @@ public class Particles extends NativeComponent {
 
 	@Override
 	public int getId() {
-		return 30;
+		return 26;
 	}
 }

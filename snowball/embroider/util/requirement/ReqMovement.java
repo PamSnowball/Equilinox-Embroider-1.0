@@ -12,7 +12,7 @@ public class ReqMovement implements CompRequirement {
 		this.target = target;
 	}
 	
-	public Collection<String> requirement() {
+	public Collection<String> req() {
 		return Collections.singleton("MOVEMENT;" + target + ';');
 	}
 }

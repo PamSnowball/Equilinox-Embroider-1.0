@@ -1,7 +1,7 @@
-package com.snowball.embroider.component.architecture.unique;
+package com.snowball.embroider.component.architecture.building;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -19,12 +19,12 @@ public class TimeOut extends NativeComponent {
 	}
 
 	@Override
-	public Collection<String> load(Entity entity) {
+	public Collection<String> load(CustomEntity entity) {
 		return Collections.singleton("TIME_OUT;" + time);
 	}
 
 	@Override
 	public int getId() {
-		return 51;
+		return 52;
 	}
 }

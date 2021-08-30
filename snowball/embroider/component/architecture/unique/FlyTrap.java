@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture.unique;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 import com.snowball.embroider.util.Vector;
 
 import java.util.Collection;
@@ -19,12 +19,12 @@ public class FlyTrap extends NativeComponent {
 	}
 	
 	@Override
-	public Collection<String> load(Entity entity) {
+	public Collection<String> load(CustomEntity entity) {
 		return Collections.singleton("FLY_TRAP;pos;" + position.toString());
 	}
 
 	@Override
 	public int getId() {
-		return 33;
+		return 35;
 	}
 }

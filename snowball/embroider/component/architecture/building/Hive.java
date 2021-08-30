@@ -1,7 +1,7 @@
-package com.snowball.embroider.component.architecture.unique;
+package com.snowball.embroider.component.architecture.building;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 import com.snowball.embroider.util.Utils;
 
 import java.util.Collection;
@@ -30,7 +30,7 @@ public class Hive extends NativeComponent {
 	}
 	
 	@Override
-	public Collection<String> load(Entity entity) {
+	public Collection<String> load(CustomEntity entity) {
 		return Collections.singleton(Utils.value("HIVE", honey, start, count));
 	}
 

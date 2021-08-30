@@ -2,7 +2,7 @@ package com.snowball.mod;
 
 import com.snowball.mod.load.Initializer;
 import com.snowball.embroider.util.Utils;
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -39,7 +39,7 @@ public class ModelConverter {
 		}
 	}
 
-	public static String convert(Entity entity) {
+	public static String convert(CustomEntity entity) {
 		Mod mod = Initializer.getModFromEntity(entity);
 
 		if (mod != null) {
@@ -55,7 +55,7 @@ public class ModelConverter {
 		return null;
 	}
 
-	private static String convert(String path, Entity entity) throws IOException {
+	private static String convert(String path, CustomEntity entity) throws IOException {
     	int stage = 0;
 		
 		InputStream[] objStreams = new InputStream[entity.getStages()];

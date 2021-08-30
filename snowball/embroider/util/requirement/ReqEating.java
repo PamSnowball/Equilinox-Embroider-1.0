@@ -13,7 +13,7 @@ public class ReqEating implements CompRequirement {
 		this.classification = classification;
 	}
 	
-	public Collection<String> requirement() {
+	public Collection<String> req() {
 		return Collections.singleton("EATING;" + classification + ';');
 	}
 }

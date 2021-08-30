@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture.hunt;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 import com.snowball.embroider.util.Utils;
 
 import java.util.Collection;
@@ -43,12 +43,12 @@ public class Fight extends NativeComponent {
 	}
 	
 	@Override
-	public Collection<String> load(Entity entity) {
+	public Collection<String> load(CustomEntity entity) {
 		return Collections.singleton(Utils.value("FIGHT;damage", damage, "revenge", revenge ? 1 : 0, "anim", lunges ? 1 : 0, "biteRange", range, "pause", pause));
 	}
 
 	@Override
 	public int getId() {
-		return 8;
+		return 7;
 	}
 }

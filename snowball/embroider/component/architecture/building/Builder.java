@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture.building;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 import com.snowball.embroider.enumerator.classification.IClassifier;
 import com.snowball.embroider.util.Utils;
 
@@ -39,13 +39,13 @@ public class Builder extends NativeComponent {
 		this.perch = needsPerch;
 	}
 
-	public NativeComponent setWorkShift(int startBuildingTime) {
+	public Builder setWorkShift(int startBuildingTime) {
 		this.early = startBuildingTime;
 		return this;
 	}
 	
 	@Override
-	public Collection<String> load(Entity entity) {
+	public Collection<String> load(CustomEntity entity) {
 		boolean isBuilding = building.getType().startsWith("es");
 
 		List<String> builder = new ArrayList<>();

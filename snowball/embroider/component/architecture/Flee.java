@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 import com.snowball.embroider.util.Utils;
 import com.snowball.embroider.enumerator.classification.IClassifier;
 
@@ -24,7 +24,7 @@ public class Flee extends NativeComponent {
 	}
 
 	/** Use if entity hides into an entity to avoid attacks */
-	public NativeComponent setsHiddenSpot(IClassifier classification) {
+	public Flee setsHiddenSpot(IClassifier classification) {
 		if (classification != null) {
 			this.classification = classification;
 		}
@@ -32,7 +32,7 @@ public class Flee extends NativeComponent {
 	}
 
 	@Override
-	public Collection<String> load(Entity entity) {
+	public Collection<String> load(CustomEntity entity) {
 		List<String> flee = new ArrayList<>();
 		
 		flee.add(Utils.value("FLEE;"));
@@ -50,6 +50,6 @@ public class Flee extends NativeComponent {
 	
 	@Override
 	public int getId() {
-		return 19;
+		return 20;
 	}
 }

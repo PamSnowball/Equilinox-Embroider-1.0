@@ -1,7 +1,7 @@
 package com.snowball.mod;
 
 import com.snowball.embroider.util.Utils;
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +17,7 @@ public class Model {
 
 	private final String entity;
 
-	public Model(List<ModelConverter.EquiliModel> models, Entity rawEntity) {
+	public Model(List<ModelConverter.EquiliModel> models, CustomEntity rawEntity) {
 		for (ModelConverter.EquiliModel model : models) {
 			pointer.add(model.getPointer());
 			vertex.add(model.getVertex());
@@ -28,21 +28,11 @@ public class Model {
 		
 		List<String> rawEntities = rawEntity.load();
 		List<String> components = rawEntity.loadComponents();
-		
-		Map<String, Integer> compMap = new HashMap<>();
-		
-		for (int i = 0; i < components.size(); i++) {
-			compMap.put(components.get(i), rawEntity.getComponentIds().get(i));
-		}
-		
-		Map<String, Integer> map = Utils.organizeList(compMap);
-		
-		List<String> componentList = new ArrayList<>(map.keySet());
-		
+
 		rawEntities.add(String.valueOf(models.size()));
 		rawEntities.add("\n");
 		
-		this.entity = convert(models.size(), rawEntities, componentList);
+		this.entity = convert(models.size(), rawEntities, components);
 	}
 
 	private String convert(int size, List<String> entities, List<String> components) {

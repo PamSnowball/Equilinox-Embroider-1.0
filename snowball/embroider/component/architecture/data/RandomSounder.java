@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture.data;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 import com.snowball.embroider.util.component.CompSound;
 import com.snowball.embroider.util.Utils;
 
@@ -42,13 +42,15 @@ public class RandomSounder extends NativeComponent {
 	int stage = 0;
 
 	/** @param volume sounds volume multiplier */
-	public final void setVolume(float volume) {
+	public RandomSounder setVolume(float volume) {
 		this.volume = volume;
+		return this;
 	}
 
 	/** @param stage stage required to start making sounds */
-	public final void setStageRequirement(int stage) {
+	public RandomSounder setStageRequirement(int stage) {
 		this.stage = stage;
+		return this;
 	}
 
 	/**
@@ -64,9 +66,6 @@ public class RandomSounder extends NativeComponent {
 			this.time = waitTime;
 			this.random = random;
 		}
-
-		this.setStageRequirement(0);
-		this.setVolume(0);
 
 		if (sounds != null) {
 			CompSound[] sound = new CompSound[sounds.length];
@@ -84,7 +83,7 @@ public class RandomSounder extends NativeComponent {
 		}
 	}
 
-	public Collection<String> load(Entity entity) {
+	public Collection<String> load(CustomEntity entity) {
 		List<String> sounder = new ArrayList<>();
 
 		if (entity.hasComponent(Sound.class) && ranges != null && sounds != null) {
@@ -104,6 +103,6 @@ public class RandomSounder extends NativeComponent {
 
 	@Override
 	public int getId() {
-		return 2;
+		return 0;
 	}
 }

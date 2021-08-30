@@ -5,6 +5,6 @@ import com.snowball.embroider.component.SimpleComponent;
 public class Name extends SimpleComponent {
 	/** Construct NAME component, it makes so entity has nicknames. */
 	public Name() {
-		super("NAME", 11);
+		super("NAME", 14);
 	}
 }

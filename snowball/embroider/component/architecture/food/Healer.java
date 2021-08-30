@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture.food;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 import com.snowball.embroider.util.component.CompDeath;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public class Healer extends NativeComponent {
 		this.death = death;
 	}
 	
-	public Collection<String> load(Entity entity) {
+	public Collection<String> load(CustomEntity entity) {
 		List<String> heal = new ArrayList<>();
 
 		if (death != null) {
@@ -33,6 +33,6 @@ public class Healer extends NativeComponent {
 
 	@Override
 	public int getId() {
-		return 40;
+		return 42;
 	}
 }

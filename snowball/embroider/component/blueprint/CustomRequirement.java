@@ -43,7 +43,7 @@ public abstract class CustomRequirement implements Requirement, CompRequirement 
 	}
 	
 	@Override
-	public Collection<String> requirement() {
+	public Collection<String> req() {
 		return BlueprintUtils.load(os, labels, compName);
 	}
 	

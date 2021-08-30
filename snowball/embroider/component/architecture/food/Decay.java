@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture.food;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -19,12 +19,12 @@ public class Decay extends NativeComponent {
 	}
 
 	@Override
-	public Collection<String> load(Entity entity) {
+	public Collection<String> load(CustomEntity entity) {
 		return Collections.singleton("DECAY;" + time);
 	}
 
 	@Override
 	public int getId() {
-		return 48;
+		return 49;
 	}
 }

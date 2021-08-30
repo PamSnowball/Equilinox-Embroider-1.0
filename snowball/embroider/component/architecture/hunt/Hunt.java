@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture.hunt;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 import com.snowball.embroider.enumerator.classification.IClassifier;
 import com.snowball.embroider.util.Utils;
 
@@ -33,7 +33,7 @@ public class Hunt extends NativeComponent {
 	}
 	
 	@Override
-	public Collection<String> load(Entity entity) {
+	public Collection<String> load(CustomEntity entity) {
 		List<String> hunt = new ArrayList<>();
 		
 		hunt.add(Utils.value("HUNT;range", range, "count", classifications.length, "prey"));
@@ -47,6 +47,6 @@ public class Hunt extends NativeComponent {
 
 	@Override
 	public int getId() {
-		return 6;
+		return 5;
 	}
 }

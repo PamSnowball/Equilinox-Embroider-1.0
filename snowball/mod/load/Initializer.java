@@ -4,7 +4,7 @@ import aiComponent.AiProgramType;
 import com.snowball.embroider.component.blueprint.Comp;
 import com.snowball.embroider.component.blueprint.CustomAi;
 import com.snowball.mod.Mod;
-import com.snowball.embroider.Entity;
+import com.snowball.embroider.CustomEntity;
 import com.snowball.embroider.enumerator.classification.IClassifier;
 
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Initializer {
-	private static final Map<Entity, Mod> map = new HashMap<>();
+	private static final Map<CustomEntity, Mod> map = new HashMap<>();
 
 	static int componentId = 2000;
 
@@ -27,7 +27,7 @@ public class Initializer {
 		this.mod = mod;
 	}
 
-	public void setEntity(Entity entity) {
+	public void setEntity(CustomEntity entity) {
 		Embroider.addEntity(entity);
 		map.put(entity, mod);
 	}
@@ -44,12 +44,12 @@ public class Initializer {
 		Embroider.addComponent(components);
 	}
 
-	public static List<Entity> getEntities() {
+	public static List<CustomEntity> getEntities() {
 		return new ArrayList<>(map.keySet());
 	}
 	
-	public static Mod getModFromEntity(Entity entity) {
-		for (Map.Entry<Entity, Mod> entry : map.entrySet()) {
+	public static Mod getModFromEntity(CustomEntity entity) {
+		for (Map.Entry<CustomEntity, Mod> entry : map.entrySet()) {
 			if (entry.getKey().equals(entity)) {
 				return entry.getValue();
 			}
