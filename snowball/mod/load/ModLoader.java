@@ -24,8 +24,6 @@ public class ModLoader {
 	protected static final List<File> modJars = new ArrayList<>();
 
 	static final List<Mod> loadedMods = new ArrayList<>();
-
-	private static boolean isMod = false;
 	
 	public static void load() {
 		loadMods();
@@ -37,6 +35,7 @@ public class ModLoader {
 			URLClassLoader loader = (URLClassLoader) ClassLoader.getSystemClassLoader();
 			
 			Method url = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
+			url.setAccessible(true);
 
 			File mods = new File("mods");
 
@@ -51,50 +50,61 @@ public class ModLoader {
 
 						url.invoke(loader, file.toURI().toURL());
 
-						for (JarEntry entry : Collections.list(jar.entries())) addMods(entry);
-
-						if (isMod) modJars.add(file);
+						for (JarEntry entry : Collections.list(jar.entries())) {
+							if (addMods(entry)) modJars.add(file);
+						}
 					}
 				}
 			}
-		} catch (IOException | IllegalAccessException | InvocationTargetException | NoSuchMethodException | ClassNotFoundException | InstantiationException e) {
+		} catch (IOException | ClassNotFoundException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private static void addMods(JarEntry entry) throws ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
+	private static boolean addMods(JarEntry entry) throws ClassNotFoundException {
 		String name = entry.getName();
 		
-		if (name.endsWith("class")) {
+		if (name.endsWith(".class")) {
 			Class<?> clazz = Class.forName(name.replace(".class", "").replace("/", "."));
-			
-			if (clazz.getSuperclass().equals(Mod.class)) {
+
+			//If Mod was an abstract class, then replace it by clazz.getSuperclass().equals(Mod.class).
+			if (Mod.class.isAssignableFrom(clazz)) {
 				Mod mod = createInstance(clazz);
 
-				if (mod != null) {
-					isMod = true;
+				if (mod != null && mod.getModInfo() != null && !mod.getModInfo().id().isEmpty()) {
+					System.out.println("Loading " + mod.getModInfo().modName());
 
-					System.out.println("Loading " + mod.getModInfo());
-				
 					loadedMods.add(mod);
+
+					return true;
 				}
 			}
 		}
+
+		return false;
 	}
 
-	private static Mod createInstance(Class<?> clazz) throws InstantiationException, IllegalAccessException, InvocationTargetException {
-		for (Constructor<?> constructor : clazz.getConstructors()) {
-			if (constructor.getParameterCount() == 0) {
-				return (Mod) constructor.newInstance();
-			} else {
-				System.out.println(clazz.getName() + " must have no constructors");
+	private static Mod createInstance(Class<?> clazz) {
+		try {
+			for (Constructor<?> constructor : clazz.getConstructors()) {
+				if (constructor.getParameterCount() == 0) {
+					constructor.setAccessible(true);
+					return (Mod) constructor.newInstance();
+				} else {
+					System.out.println(clazz.getName() + " must have zero-args constructor or no constructor");
+				}
 			}
+		} catch(IllegalAccessException | InstantiationException | InvocationTargetException e) {
+			e.printStackTrace();
 		}
 		
 		return null;
 	}
 	
 	private static void initializeMods() {
-		loadedMods.forEach(mod -> mod.init(new Initializer(mod)));
+		loadedMods.forEach(mod -> {
+			System.out.println(mod.getModInfo().modName());
+			mod.init(new Initializer(mod));
+		});
 	}
 }

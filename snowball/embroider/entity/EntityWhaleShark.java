@@ -1,5 +1,6 @@
 package com.snowball.embroider.entity;
 
+import biomes.Biome;
 import com.snowball.embroider.CustomEntity;
 import com.snowball.embroider.component.architecture.*;
 import com.snowball.embroider.enumerator.classification.specific.AnimalClassification;
@@ -87,7 +88,7 @@ public class EntityWhaleShark extends CustomEntity {
 		 * ReqTransform is the size needed, in this case 1.15x the normal species count.
 		 * ReqBiome is the biome the creature must be at to evolve and the biome % required.
 		 */
-		CompRequirement[] evolveRequirements = { new ReqTransform(1.15F), new ReqBiome(Biomes.TROPICAL, 0.35F) };
+		CompRequirement[] evolveRequirements = { new ReqTransform(1.15F), new ReqBiome(Biomes.TROPICAL.getBiome(), 0.35F) };
 
 		/*
 		 * Habitat specification, the requirements for having a healthy and mighty life.
@@ -101,7 +102,7 @@ public class EntityWhaleShark extends CustomEntity {
 		 * The second parameter is the health influence in its life, in this case large rocks are tremendously important for our entity.
 		 */
 		CompEnvironment[] environmentRequirements = {
-				new Environment.EnvironmentLikedBiome(false, new Biomes[] { Biomes.TROPICAL }, 80F, 0.5F),
+				new Environment.EnvironmentLikedBiome(false, new Biome[] { Biomes.TROPICAL.getBiome() }, 80F, 0.5F),
 				new Environment.EnvironmentLikedSpecies(new IClassifier[] { BaseClassification.LARGE_ROCK }, 0.8F)
 		};
 

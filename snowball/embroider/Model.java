@@ -1,12 +1,7 @@
-package com.snowball.mod;
-
-import com.snowball.embroider.util.Utils;
-import com.snowball.embroider.CustomEntity;
+package com.snowball.embroider;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Model {
 	private final List<List<Integer>> pointer = new ArrayList<>();

@@ -1,19 +1,18 @@
 package com.snowball.embroider.util.requirement;
 
+import biomes.Biome;
 import com.snowball.embroider.util.component.CompRequirement;
 import com.snowball.embroider.util.Utils;
-import com.snowball.embroider.enumerator.Biomes;
-import com.snowball.embroider.util.component.IBiome;
 
 import java.util.Collection;
 import java.util.Collections;
 
 public class ReqNotBiome implements CompRequirement {
-	IBiome biome;
+	Biome biome;
 		
 	float amount = 0.1F;
 	
-	public ReqNotBiome(IBiome biome) {
+	public ReqNotBiome(Biome biome) {
 		this.biome = biome;
 	}
 

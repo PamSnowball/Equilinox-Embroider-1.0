@@ -1,5 +1,6 @@
 package com.snowball.mod.load;
 
+import biomes.Biome;
 import classification.Classifier;
 import com.snowball.embroider.component.blueprint.Comp;
 import componentArchitecture.ComponentType;
@@ -14,7 +15,7 @@ import java.util.List;
 class Embroider {
 	private Embroider() {}
 	
-	public static <T extends Enum<T> & IClassifier> void addClassification(Class<T> classifier) {
+	static <T extends Enum<T> & IClassifier> void addClassification(Class<T> classifier) {
 		Method[] methods = classifier.getDeclaredMethods();
 		T[] constants = classifier.getEnumConstants();
 		
@@ -45,12 +46,17 @@ class Embroider {
 	}
 
 	static void addEntity(CustomEntity entity) {
+		System.out.println("Adding custom entity " + entity.getName());
 		if (CustomEntity.isValid(entity)) {
 			BlueprintRepository.addCustomEntity(entity);
 		}
 	}
 
-	public static void addComponent(Comp comp) {
+	static void addComponent(Comp comp) {
 		ComponentType.addCustomComponent(comp.toString(), comp.getType());
+	}
+
+	static void addBiome(Biome biome) {
+		Biome.addCustomComponent(biome.toString(), biome);
 	}
 }

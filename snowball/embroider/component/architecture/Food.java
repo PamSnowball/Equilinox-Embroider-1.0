@@ -2,7 +2,7 @@ package com.snowball.embroider.component.architecture;
 
 import com.snowball.embroider.component.NativeComponent;
 import com.snowball.embroider.CustomEntity;
-import com.snowball.mod.ModelConverter;
+import com.snowball.embroider.ModelConverter;
 import com.snowball.embroider.util.component.Death.FadeDeath;
 import com.snowball.embroider.util.component.CompDeath;
 import com.snowball.embroider.util.Utils;

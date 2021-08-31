@@ -1,8 +1,8 @@
-package com.snowball.mod;
+package com.snowball.embroider;
 
+import com.snowball.mod.Mod;
 import com.snowball.mod.load.Initializer;
 import com.snowball.embroider.util.Utils;
-import com.snowball.embroider.CustomEntity;
 
 import java.io.*;
 import java.time.LocalDate;

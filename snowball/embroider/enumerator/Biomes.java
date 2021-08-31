@@ -1,26 +1,30 @@
 package com.snowball.embroider.enumerator;
 
-import com.snowball.embroider.util.component.IBiome;
+import biomes.Biome;
 
-public enum Biomes implements IBiome {
-	GRASSLAND(0),
-	FOREST(1),
-	RIVER_BED(2),
-	DESERT(3),
-	SNOW(4),
-	JUNGLE(5),
-	SWAMP(6),
-	LUSH(7),
-	WOODLAND(8),
-	TROPICAL(9);
+public enum Biomes {
+	GRASSLAND(Biome.GRASSLAND),
+	FOREST(Biome.FOREST),
+	RIVER_BED(Biome.RIVER_BED),
+	DESERT(Biome.DESERT),
+	SNOW(Biome.SNOW),
+	JUNGLE(Biome.JUNGLE),
+	SWAMP(Biome.SWAMP),
+	LUSH(Biome.LUSH),
+	WOODLAND(Biome.WOODLAND),
+	TROPICAL(Biome.TROPICAL);
 	
-	private final int id;
+	private final Biome biome;
 	
-	Biomes(int id) {
-		this.id = id;
+	Biomes(Biome biome) {
+		this.biome = biome;
 	}
-	
+
+	public Biome getBiome() {
+		return biome;
+	}
+
 	public int getId() {
-		return this.id;
+		return biome.getId();
 	}
 }

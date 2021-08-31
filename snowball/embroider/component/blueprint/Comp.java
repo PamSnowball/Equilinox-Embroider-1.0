@@ -5,8 +5,7 @@ import com.snowball.embroider.component.IComponent;
 import componentArchitecture.ComponentLoader;
 import componentArchitecture.Requirement;
 import com.snowball.embroider.CustomEntity;
-import com.snowball.mod.ModelConverter;
-import com.snowball.mod.load.Initializer;
+import com.snowball.embroider.ModelConverter;
 import utils.CSVReader;
 
 import java.util.*;
@@ -22,14 +21,18 @@ public abstract class Comp implements ComponentLoader, IComponent {
 	
 	private final Map<Boolean, String> labels;
 
+	private final String name;
+
+	private final int id;
+
 	private Map<Object, Boolean> map = new HashMap<>();
 	
 	private List<Object> os = new ArrayList<>();
 
-	private final String name;
-	
-	protected Comp(Map<Object, Boolean> map, List<String> labels, CustomComponentType type, CustomComponent component, CustomRequirement requirement) {
+	protected Comp(int id, Map<Object, Boolean> map, List<String> labels, CustomComponentType type, CustomComponent component, CustomRequirement requirement) {
 		this.labels = BlueprintUtils.mapLabels(map, labels);
+
+		this.id = id;
 
 		this.requirement = requirement;
 		this.component = component;
@@ -54,7 +57,7 @@ public abstract class Comp implements ComponentLoader, IComponent {
 
 	@Override
 	public final int getId() {
-		return Initializer.getCompId();
+		return id;
 	}
 
 	@Override

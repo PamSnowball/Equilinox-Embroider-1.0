@@ -1,6 +1,7 @@
 package com.snowball.mod.load;
 
 import aiComponent.AiProgramType;
+import biomes.Biome;
 import com.snowball.embroider.component.blueprint.Comp;
 import com.snowball.embroider.component.blueprint.CustomAi;
 import com.snowball.mod.Mod;
@@ -15,19 +16,14 @@ import java.util.Map;
 public class Initializer {
 	private static final Map<CustomEntity, Mod> map = new HashMap<>();
 
-	static int componentId = 2000;
-
 	Mod mod;
 
-	public static int getCompId() {
-		return componentId;
-	}
-
-	public Initializer(Mod mod) {
+	Initializer(Mod mod) {
+		System.out.println("Initializing " + mod.getModInfo().modName());
 		this.mod = mod;
 	}
 
-	public void setEntity(CustomEntity entity) {
+	public void addEntity(CustomEntity entity) {
 		Embroider.addEntity(entity);
 		map.put(entity, mod);
 	}
@@ -42,6 +38,10 @@ public class Initializer {
 	
 	public void addCustomComponent(Comp components) {
 		Embroider.addComponent(components);
+	}
+
+	public void addCustomBiome(Biome biome) {
+		Embroider.addBiome(biome);
 	}
 
 	public static List<CustomEntity> getEntities() {

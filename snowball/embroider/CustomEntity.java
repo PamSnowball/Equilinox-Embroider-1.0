@@ -57,19 +57,19 @@ public class CustomEntity implements IClassifier {
 		pastLines(classification, height);
 	}
 
-	protected final void setAquatic(float height) {
+	public final void setAquatic(float height) {
 		this.height = height;
 		this.aquatic = true;
 	}
 
-	public final void setSpecialData(int stage, boolean random, boolean visible) {
+	protected final void setSpecialData(int stage, boolean random, boolean visible) {
 		mainStage = Math.max(stage, 0);
 
 		this.alwaysVisible = visible;
 		this.randomize = random;
 	}
 
-	public final void setIconData(float size, float y) {
+	protected final void setIconData(float size, float y) {
 		iconSize = Math.max(size, 0);
 		iconY = Math.max(y, 0);
 
@@ -133,7 +133,7 @@ public class CustomEntity implements IClassifier {
 	}
 
 
-	protected final void firstLine(float size) {
+	private void firstLine(float size) {
 		newEntity.add(Utils.value(size));
 		
 		newEntity.add("name;-1;");
@@ -145,8 +145,8 @@ public class CustomEntity implements IClassifier {
 		
 		newEntity.add("\n");
 	}
-	
-	protected final void pastLines(String classification, float height) {
+
+	private void pastLines(String classification, float height) {
 		newEntity.add(classification);
 		newEntity.add("\n");
 		
@@ -163,9 +163,8 @@ public class CustomEntity implements IClassifier {
 		return name;
 	}
 	
-	protected final CustomEntity componentLoader(IComponent component) {
+	protected final void componentLoader(IComponent component) {
 		comps.add(component); Utils.append(new ArrayList<>(component.load(this)), components);
-		return this;
 	}
 	
 	public List<String> loadComponents() {

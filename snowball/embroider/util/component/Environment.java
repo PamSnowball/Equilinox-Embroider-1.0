@@ -1,5 +1,6 @@
 package com.snowball.embroider.util.component;
 
+import biomes.Biome;
 import com.snowball.embroider.util.Utils;
 import com.snowball.embroider.enumerator.Biomes;
 import com.snowball.embroider.enumerator.classification.IClassifier;
@@ -35,12 +36,12 @@ public class Environment {
 	public static class EnvironmentLikedBiome implements CompEnvironment {
 		boolean barren;
 		
-		IBiome[] biomes;
+		Biome[] biomes;
 		
 		float ideal;
 		float influence;
 
-		public EnvironmentLikedBiome(boolean growsBarren, IBiome[] likedBiomes, float ideal, float healthInfluence) {
+		public EnvironmentLikedBiome(boolean growsBarren, Biome[] likedBiomes, float ideal, float healthInfluence) {
 			this.influence = healthInfluence;
 			this.barren = growsBarren;
 			this.biomes = likedBiomes;
@@ -53,7 +54,7 @@ public class Environment {
 			
 			if (biomes != null) { 
 				environment.add(Utils.value(I, 2, "barren", barren ? 1 : 0, "likedBiomes", biomes.length));
-				for (IBiome biome : biomes) environment.add(biome.getId() + ";");
+				for (Biome biome : biomes) environment.add(biome.getId() + ";");
 				environment.add(Utils.value("idealFactor", ideal, "influence", influence + ';'));
 			}
 			
@@ -62,11 +63,11 @@ public class Environment {
 	}
 	
 	public static class EnvironmentUnsuitableBiome implements CompEnvironment {
-		IBiome[] biomes;
+		Biome[] biomes;
 		
 		float influence;
 		
-		public EnvironmentUnsuitableBiome(IBiome[] dislikedBiomes, float healthInfluence) {
+		public EnvironmentUnsuitableBiome(Biome[] dislikedBiomes, float healthInfluence) {
 			this.biomes = dislikedBiomes;
 			this.influence = healthInfluence;
 		}
@@ -76,7 +77,7 @@ public class Environment {
 			List<String> environment = new ArrayList<>();
 			
 			environment.add(I + 3 + ";dislikedBiomes;" + biomes.length);
-			for (IBiome biome : biomes) environment.add(biome.getId() + ";");
+			for (Biome biome : biomes) environment.add(biome.getId() + ";");
 			environment.add(IN + influence + ';');
 			
 			return environment;
@@ -84,11 +85,11 @@ public class Environment {
 	}
 	
 	public static class EnvironmentFavouriteBiome implements CompEnvironment {
-		IBiome biome;
+		Biome biome;
 		
 		float influence;
 		
-		public EnvironmentFavouriteBiome(IBiome favouriteBiome, float healthInfluence) {
+		public EnvironmentFavouriteBiome(Biome favouriteBiome, float healthInfluence) {
 			this.biome = favouriteBiome;
 			this.influence = healthInfluence;
 		}
