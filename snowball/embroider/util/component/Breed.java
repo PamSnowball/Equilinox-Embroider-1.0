@@ -32,12 +32,11 @@ public class Breed {
 	public Collection<String> breed() {
 		List<String> breed = new ArrayList<>();
 		
-		breed.add(Utils.value("breedMat" + maturity + "breedTime" + time + "parentId" + parentId));
+		breed.add(Utils.value("breedMat", maturity, "breedTime", time, "parentId", parentId));
 		if (parentId >= 0) {
-			breed.add("time;" + count + ';');
+			breed.add("count;" + count + ";reqs;" + requirements.length + ';');
 			for (CompRequirement requirement : requirements) {
 				breed.addAll(requirement.req());
-				breed.add(";");
 			}
 		}
 

@@ -4,11 +4,11 @@ public interface IClassifier {
 	String getClassification();
 	
 	default int getId() {
-		return Integer.parseInt(this.getClassification().replace("[\\D]", ""));
+		return Integer.parseInt(this.getClassification().replaceAll("[^\\d.]", ""));
 	}
 	
 	default String getType() {
-		return this.getClassification().replace("[0-9]", "");
+		return this.getClassification().replaceAll("[0-9]", "");
 	}
 
 	default boolean needsSuperReplacement() {

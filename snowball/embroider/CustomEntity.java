@@ -4,6 +4,7 @@ import com.snowball.embroider.component.IComponent;
 import com.snowball.mod.load.Initializer;
 import com.snowball.embroider.util.Vector;
 import com.snowball.embroider.util.Utils;
+import javafx.scene.web.WebHistory;
 import resourceManagement.BlueprintRepository;
 import com.snowball.embroider.enumerator.classification.IClassifier;
 
@@ -36,7 +37,7 @@ public class CustomEntity implements IClassifier {
 	private final List<IComponent> comps = new ArrayList<>();
 	
 	protected List<String> components = new ArrayList<>();
-	protected List<String> newEntity = new ArrayList<>();
+	protected StringBuilder newEntity = new StringBuilder();
 
 	public CustomEntity(int id, String name, IClassifier classification, float size, int stages) {
 		this.stages = stages;
@@ -70,14 +71,14 @@ public class CustomEntity implements IClassifier {
 	}
 
 	protected final void setIconData(float size, float y) {
-		iconSize = Math.max(size, 0);
+		iconSize = 1 / Math.max(size, 0.01F);
 		iconY = Math.max(y, 0);
 
 		this.hasCustomIcon = true;
 	}
 
-	public List<String> load() {
-		return newEntity;
+	public String load() {
+		return newEntity.toString();
 	}
 
 	public static boolean isValid(CustomEntity entity) {
@@ -110,7 +111,11 @@ public class CustomEntity implements IClassifier {
 			map.put(comps.get(i).getId(), components.get(i));
 		}
 
-		return new ArrayList<>(map.values());
+		return map.entrySet().stream().sorted(Comparator.comparingInt(Map.Entry::getKey)).map(Map.Entry::getValue)
+				.collect(Collectors.collectingAndThen(Collectors.toList(), list -> {
+					Collections.reverse(list);
+					return list;
+				}));
 	}
 
 	public int getStages() {
@@ -134,29 +139,26 @@ public class CustomEntity implements IClassifier {
 
 
 	private void firstLine(float size) {
-		newEntity.add(Utils.value(size));
+		newEntity.append(size).append(";");
 		
-		newEntity.add("name;-1;");
+		newEntity.append("name;-1;");
 		
-		newEntity.add(Utils.value("id", mainStage));
-		newEntity.add(Utils.value("randomize", randomize ? 1 : 0, "alwaysVis", alwaysVisible ? 1 : 0));
+		newEntity.append(Utils.value("id", mainStage, "randomize", randomize ? 1 : 0, "alwaysVis", alwaysVisible ? 1 : 0));
 		
-		if (hasCustomIcon) newEntity.add(Utils.value("size", iconSize, "y", iconY));
+		if (hasCustomIcon) newEntity.append(Utils.value("size", iconSize, "y", iconY));
 		
-		newEntity.add("\n");
+		newEntity.append("\n");
 	}
 
 	private void pastLines(String classification, float height) {
-		newEntity.add(classification);
-		newEntity.add("\n");
+		newEntity.append(classification);
+		newEntity.append("\n");
 		
-		newEntity.add(Utils.value(height <= 0 && aquatic ? 1 : 0, height >= 0 ? 1 : 0, height != 0 ? height : ""));
+		newEntity.append(Utils.value(height <= 0 && aquatic ? 1 : 0, height >= 0 ? 1 : 0, height != 0 ? height : ""));
 
-		newEntity.add("\n");
-	}
+		newEntity.append("\n");
 
-	public void setEntity(List<String> entity) {
-		this.newEntity = entity;
+		System.out.println(newEntity);
 	}
 	
 	public String getName() {
@@ -168,15 +170,18 @@ public class CustomEntity implements IClassifier {
 	}
 	
 	public List<String> loadComponents() {
-		return organize();
+		System.out.println();
+		List<String> list = organize();
+		list.forEach(System.out::println);
+		return list;
 	}
 
 	public boolean hasMaterial() {
 		return this.material;
 	}
 	
-	public void setHasMaterial(boolean hasMaterial) {
-		this.material = hasMaterial;
+	public void setHasMaterial() {
+		this.material = true;
 	}
 
 	public String getClassification() {

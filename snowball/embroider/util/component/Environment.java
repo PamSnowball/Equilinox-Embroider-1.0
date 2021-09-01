@@ -13,7 +13,7 @@ import java.util.List;
 public class Environment {
 	private static final String I = "reqId";
 
-	private static final String IN = "influence;";
+	private static final String IN = "influence";
 	
 	public static class EnvironmentAltitude implements CompEnvironment {
 		float influence;
@@ -29,7 +29,7 @@ public class Environment {
 		
 		@Override
 		public Collection<String> requirement() {
-			return Collections.singleton(Utils.value(I, 1, "min", min, "max", max, "influence", influence + ';'));
+			return Collections.singleton(Utils.value(I, 1, "min", min, "max", max, IN, influence + ';'));
 		}
 	}	
 	
@@ -55,7 +55,7 @@ public class Environment {
 			if (biomes != null) { 
 				environment.add(Utils.value(I, 2, "barren", barren ? 1 : 0, "likedBiomes", biomes.length));
 				for (Biome biome : biomes) environment.add(biome.getId() + ";");
-				environment.add(Utils.value("idealFactor", ideal, "influence", influence + ';'));
+				environment.add(Utils.value("idealFactor", ideal, IN, influence + ';'));
 			}
 			
 			return environment;
@@ -76,9 +76,9 @@ public class Environment {
 		public Collection<String> requirement() {
 			List<String> environment = new ArrayList<>();
 			
-			environment.add(I + 3 + ";dislikedBiomes;" + biomes.length);
+			environment.add(I + ';' + 3 + ";dislikedBiomes;" + biomes.length);
 			for (Biome biome : biomes) environment.add(biome.getId() + ";");
-			environment.add(IN + influence + ';');
+			environment.add(IN + ';' + influence + ';');
 			
 			return environment;
 		}
@@ -96,7 +96,7 @@ public class Environment {
 		
 		@Override
 		public Collection<String> requirement() {
-			return Collections.singleton(I + 4 + ";faveBiomes;" + biome.getId() + ";influence" + influence + ';');
+			return Collections.singleton(Utils.value(I, 4, "faveBiomes", biome.getId(), IN, influence));
 		}
 	}
 	
@@ -114,9 +114,9 @@ public class Environment {
 		public Collection<String> requirement() {
 			List<String> environment = new ArrayList<>();
 			
-			environment.add(I + 5 + ";likedSpecies;" + species.length + ';');
+			environment.add(I + ';' + 5 + ";likedSpecies;" + species.length + ';');
 			for (IClassifier specie : species) environment.add(specie.getClassification() + ";");
-			environment.add(IN + influence + ';');
+			environment.add(IN + ';' + influence + ';');
 
 			return environment;
 		}
@@ -136,9 +136,9 @@ public class Environment {
 		public Collection<String> requirement() {
 			List<String> environment = new ArrayList<>();
 			
-			environment.add(I + 6 + ";likedSpecies;" + species.length + ';');
+			environment.add(I + ';' + 6 + ";likedSpecies;" + species.length + ';');
 			for (IClassifier specie : species) environment.add(specie.getClassification() + ";");
-			environment.add(IN + influence + ';');
+			environment.add(IN + ';' + influence + ';');
 
 			return environment;
 		}

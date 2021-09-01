@@ -31,7 +31,7 @@ public class Information extends NativeComponent {
 	 */
 	public Information(String name, String description, int price, int cashPerMin, int range, CompSound sound) {
 		this.name = name;
-		this.desc = description;
+		this.desc = description.replace(";", ",");
 		this.price = price;
 		this.dpMin = cashPerMin;
 		this.range = range;

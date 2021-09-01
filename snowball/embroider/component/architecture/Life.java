@@ -60,16 +60,16 @@ public class Life extends NativeComponent {
 
 	public Collection<String> load(CustomEntity entity) {
 		List<String> life = new ArrayList<>();
-		
-		life.add(Utils.value("LIFE;averagePopulation", population, "averageLife", lifespan, "popFactors", factors.length));
-		if (factors.length > 0) for (int i = 0; i < Math.min(factors.length, entity.getType().length()) - 1; i++) life.add(factors[i] + ";");
+
+		life.add(Utils.value("LIFE;averagePop", population, "averageLife", lifespan, "popFactors", factors == null ? 0 : factors.length));
+		if (factors != null) for (int i = 0; i < Math.min(factors.length, entity.getType().length()) - 1; i++) life.add(factors[i] + ";");
 
 		life.addAll(breed.breed());
 		life.addAll(death.death());
 		life.add("enviroReqCount;" + environments.length + ';');
 		for (CompEnvironment environment : environments) life.addAll(environment.requirement());
 		if (points > 0) life.add("defencePoints;" + points);
-		
+
 		return life;
 	}
 	

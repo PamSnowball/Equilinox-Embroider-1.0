@@ -12,9 +12,9 @@ public class ReqNearbySpecies implements CompRequirement {
 		
 	int count;
 		
-	public ReqNearbySpecies(IClassifier nearbySpecieClassification, int entityCount) {
-		this.classification = nearbySpecieClassification;
-		this.count = entityCount;
+	public ReqNearbySpecies(IClassifier classification, int count) {
+		this.classification = classification;
+		this.count = count;
 	}
 		
 	@Override

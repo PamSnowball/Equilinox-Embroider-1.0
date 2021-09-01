@@ -13,6 +13,6 @@ public class ReqTransform implements CompRequirement {
 	}
 	
 	public Collection<String> req() {
-		return Collections.singleton("TRANSFORM;" + size + ';');
+		return Collections.singleton("TRANSFORM;size;" + size + ';');
 	}
 }

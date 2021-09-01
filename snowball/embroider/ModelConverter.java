@@ -1,8 +1,7 @@
 package com.snowball.embroider;
 
-import com.snowball.mod.Mod;
-import com.snowball.mod.load.Initializer;
 import com.snowball.embroider.util.Utils;
+import com.snowball.mod.load.ModLoader;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -11,9 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModelConverter {
+	private ModelConverter() {}
+
 	public static final File LOG_FILE = new File("log/");
 	
-	static StringBuilder output;
+	static StringBuilder output = new StringBuilder();
 
 	private static int i;
 
@@ -23,14 +24,20 @@ public class ModelConverter {
 		output.append(log).append("\n");
 	}
 
-	public static void main(String[] args) {
-		LOG_FILE.mkdirs();
-
+	public static void init() {
 		Utils.checkForEquilinoxJar();
 
-		if (output != null) {
+		ModLoader.init();
+
+		LOG_FILE.mkdirs();
+	}
+
+	public static void postInit() {
+		if (output.length() > 0) {
+			output.append("\n");
+
 			File outputFile = new File("log/" + LocalDate.now() + "_" +  LocalTime.now().toString().replace(':', '-').replace('.', '-') + ".txt");
-			
+
 			try (FileWriter writer = new FileWriter(outputFile)) {
 				writer.write(output.toString().replace(",", "").replace(" ", "").replace("[", "").replace("]", ""));
 			} catch (Exception e) {
@@ -39,73 +46,63 @@ public class ModelConverter {
 		}
 	}
 
-	public static String convert(CustomEntity entity) {
-		Mod mod = Initializer.getModFromEntity(entity);
+	public static String convert(CustomEntity entity) throws IOException {
+		String path = "/entities/" + entity.getName();
+		System.out.println("Trying to convert " + entity.getName());
 
-		if (mod != null) {
-			String path = "/entities/" + entity.getName();
-			System.out.println("Trying to convert " + entity.getName());
-			try {
-				return convert(path, entity);
-			} catch (IOException e) {
-				System.out.println("Failed to convert");
-			}
-		}
+		entity.init();
 
-		return null;
+		return convert(path, entity);
 	}
 
 	private static String convert(String path, CustomEntity entity) throws IOException {
-    	int stage = 0;
-		
-		InputStream[] objStreams = new InputStream[entity.getStages()];
+    	InputStream[] objStreams = new InputStream[entity.getStages()];
 		InputStream[] mtlStreams = new InputStream[entity.getStages()];
 		
 		for (int l = 0; l < entity.getStages(); l++) {
-			if (path != null) {
-    			stage++;
-    			objStreams[l] = ModelConverter.class.getResourceAsStream(path + "_" + stage + ".obj");
-    			mtlStreams[l] = ModelConverter.class.getResourceAsStream(path + "_" + stage + ".mtl");
-    			System.out.println("Got file: " + path);
-    		}
-    	}
-		
+			InputStream obj = entity.getClass().getResourceAsStream(path + "_" + l + ".obj");
+			InputStream mtl = entity.getClass().getResourceAsStream(path + "_" + l + ".mtl");
+
+			if (obj != null) { objStreams[l] = obj; }
+			if (mtl != null) { mtlStreams[l] = mtl; }
+
+			System.out.println("Got file: " + path + "_" + l);
+		}
+
 		List<EquiliModel> models = new ArrayList<>();
 		
-		for (int j = 0; j < stage; j++) {
+		for (int j = 0; j < objStreams.length; j++) {
 			List<Integer> pointer = new ArrayList<>();
-			
+
 			List<String> faces = new ArrayList<>();
-			
+
 			List<Float> vertex = new ArrayList<>();
 			List<Float> normal = new ArrayList<>();
 			List<Float> colour = new ArrayList<>();
-			
+
 			List<String> objLines = new ArrayList<>();
 
-			assert objStreams[j] != null;
 			try (BufferedReader reader = new BufferedReader(new InputStreamReader(objStreams[j]))) {
 				while (reader.ready()) objLines.add(reader.readLine());
 			}
-			
+
 			List<String> mtlLines = new ArrayList<>();
 
-			assert mtlStreams[j] != null;
 			try (BufferedReader reader = new BufferedReader(new InputStreamReader(mtlStreams[j]))) {
 				while (reader.ready()) mtlLines.add(reader.readLine());
 			}
-			
+
 			List<List<String>> stringList = new ArrayList<>();
 			stringList.add(faces);
 			stringList.add(mtlLines);
-			
+
 			List<List<Float>> floatList = new ArrayList<>();
 			floatList.add(vertex);
 			floatList.add(normal);
 			floatList.add(colour);
-			
+
 			for (String objLine : objLines) lineReader(stringList, pointer, floatList, objLine);
-			
+
 			pointer.add(i);
 
 			if (entity.hasMaterial()) {
@@ -113,7 +110,7 @@ public class ModelConverter {
 				colour.set(1, 0F);
 				colour.set(2, 0F);
 			}
-			
+
 			models.add(new EquiliModel(pointer, vertex, normal, colour, faces));
 		}
 

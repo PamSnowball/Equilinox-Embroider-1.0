@@ -20,22 +20,18 @@ public class Model {
 			colour.add(model.getColour());
 			faces.add(model.getFaces());
 		}
-		
-		List<String> rawEntities = rawEntity.load();
+
 		List<String> components = rawEntity.loadComponents();
 
-		rawEntities.add(String.valueOf(models.size()));
-		rawEntities.add("\n");
-		
-		this.entity = convert(models.size(), rawEntities, components);
+		this.entity = convert(models.size(), rawEntity, components);
 	}
 
-	private String convert(int size, List<String> entities, List<String> components) {
-		int j = 1;
-		
+	private String convert(int size, CustomEntity entity, List<String> components) {
+		List<String> entities = new ArrayList<>();
+
+		String entityInfo = entity.load() + size + "\n";
+
 		for (int k = 0; k < size; k++) {
-			int point = colour.get(k).size() / 3 - 1;
-			
 			entities.add(insert(String.format("%.4f", getMin(vertex.get(k), 0))) + ";");
 			entities.add(insert(String.format("%.4f", getMin(vertex.get(k), 1))) + ";");
 			entities.add(insert(String.format("%.4f", getMin(vertex.get(k), 2))) + ";");
@@ -46,48 +42,24 @@ public class Model {
 			
 			entities.add("1");
 			entities.add("\n");
-			
-			int pointerSize = pointer.get(k).size() - 1;
-			String facesSize = faces.get(k).size() - pointerSize + ";";
-			entities.add(facesSize + pointerSize);
 
-			for(int i = 0; i < faces.get(k).size(); i++) {	
-				if (faces.get(k).get(i).contains("//")) {
-					String[] convertedFaces = faces.get(k).get(i).split("//");
-					int faces0 = Integer.parseInt(convertedFaces[0]) - 1;
-					int faces1 = Integer.parseInt(convertedFaces[1]) - 1;
-					entities.add(insert(String.format("%.4f", vertex.get(k).get(faces0 * 3))) + ";");
-					entities.add(insert(String.format("%.4f", vertex.get(k).get(faces0 * 3 + 1))) + ";");
-					entities.add(insert(String.format("%.4f", vertex.get(k).get(faces0 * 3 + 2))) + ";");
-					entities.add(insert(String.format("%.4f", normal.get(k).get(faces1 * 3))) + ";");
-					entities.add(insert(String.format("%.4f", normal.get(k).get(faces1 * 3 + 1))) + ";");
-					entities.add(insert(String.format("%.4f", normal.get(k).get(faces1 * 3 + 2))));
-					if (i + 1 < faces.get(k).size() && !faces.get(k).get(i + 1).contains("pointer"))
-						entities.add(";");
-					}
-			
-				if (faces.get(k).get(i).contains("pointer")) {
-					entities.add("\n");
-					entities.add(pointer.get(k).get(j) - pointer.get(k).get(j - 1) + ";");
-					entities.add(colour.get(k).get(point * 3).toString() + ";");
-					entities.add(colour.get(k).get(point * 3 + 1).toString() + ";");
-					entities.add(colour.get(k).get(point * 3 + 2).toString());
-					entities.add("\n");
-					point--;
-					j++;
-				}
-			}
-			
-			j = 1;
-			entities.add("\n");
+			int pointerSize = pointer.get(k).size() - 1;
+			if (vertex.size() > 1000) ModelConverter.log("Model of stage " + k + " of entity " + entity.getName() + " has " + vertex.size() + " vertices, more than the allowed 1000 vertices");
+
+			entities.add(faces.get(k).size() - pointerSize + ";" + pointerSize);
+
+			loadModel(entities, k);
 		}
-		
-		String outputEntity = entities.toString().replace(",", "").replace("[", "").replace("]", "");
-		
+
+		String outputEntity =
+				entityInfo.replace(",", "").replace("[", "").replace("]", "") +
+				entities.toString().replace(",", "").replace("[", "").replace("]", "").replace(" ", "");
+
 		entities.clear();
 		
 		entities.add(String.valueOf(components.size()));
 		entities.add("\n");
+
 		components.forEach(component -> { entities.add(component); entities.add("\n"); });
 
 		StringBuilder builder = new StringBuilder();
@@ -98,7 +70,41 @@ public class Model {
 
 		return outputEntity + componentText.replace("[", "").replace("]", "");
 	}
-	
+
+	private void loadModel(List<String> entities, int stage) {
+		int j = 1;
+
+		int point = colour.get(stage).size() / 3 - 1;
+		for(int i = 0; i < faces.get(stage).size(); i++) {
+			if (faces.get(stage).get(i).contains("//")) {
+				String[] convertedFaces = faces.get(stage).get(i).split("//");
+				int faces0 = Integer.parseInt(convertedFaces[0]) - 1;
+				int faces1 = Integer.parseInt(convertedFaces[1]) - 1;
+				entities.add(insert(String.format("%.4f", vertex.get(stage).get(faces0 * 3))) + ";");
+				entities.add(insert(String.format("%.4f", vertex.get(stage).get(faces0 * 3 + 1))) + ";");
+				entities.add(insert(String.format("%.4f", vertex.get(stage).get(faces0 * 3 + 2))) + ";");
+				entities.add(insert(String.format("%.4f", normal.get(stage).get(faces1 * 3))) + ";");
+				entities.add(insert(String.format("%.4f", normal.get(stage).get(faces1 * 3 + 1))) + ";");
+				entities.add(insert(String.format("%.4f", normal.get(stage).get(faces1 * 3 + 2))));
+				if (i + 1 < faces.get(stage).size() && !faces.get(stage).get(i + 1).contains("pointer"))
+					entities.add(";");
+				}
+
+			if (faces.get(stage).get(i).contains("pointer")) {
+				entities.add("\n");
+				entities.add(pointer.get(stage).get(j) - pointer.get(stage).get(j - 1) + ";");
+				entities.add(colour.get(stage).get(point * 3).toString() + ";");
+				entities.add(colour.get(stage).get(point * 3 + 1).toString() + ";");
+				entities.add(colour.get(stage).get(point * 3 + 2).toString());
+				entities.add("\n");
+				point--;
+				j++;
+			}
+		}
+
+		entities.add("\n");
+	}
+
 	public static Float getMax(List<Float> floatList, int axis) {
 		Float max = floatList.get(axis); 
 		for(int i = 0; i < floatList.size(); i += 3)

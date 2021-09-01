@@ -37,9 +37,9 @@ public class Material extends NativeComponent {
 		List<String> colour = new ArrayList<>();
 
 		if (prices.length > 0) {
-			entity.setHasMaterial(true);
+			entity.setHasMaterial();
 
-			colour.add(Utils.value("MATERIAL;second", hasSecond ? 1 : 0, "count" + colors.length));
+			colour.add(Utils.value("MATERIAL;second", hasSecond ? 1 : 0, "count", colors.length));
 			for (int i = 0; i < colors.length; i++) {
 				colour.add(Colours.checkForColour(colors[i]) + ";" + prices[i] + ";");
 			}
