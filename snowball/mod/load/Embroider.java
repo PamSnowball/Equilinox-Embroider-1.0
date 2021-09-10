@@ -5,12 +5,13 @@ import classification.Classifier;
 import com.snowball.embroider.component.blueprint.Comp;
 import componentArchitecture.ComponentType;
 import resourceManagement.BlueprintRepository;
-import com.snowball.embroider.CustomEntity;
+import com.snowball.embroider.entity.CustomEntity;
 import com.snowball.embroider.enumerator.classification.IClassifier;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 class Embroider {
 	private Embroider() {}
@@ -53,7 +54,7 @@ class Embroider {
 	}
 
 	static void addComponent(Comp comp) {
-		ComponentType.addCustomComponent(comp.toString(), comp.getType());
+		ComponentType.addCustomComponent("CUSTOM_" + comp.name(), comp.getType());
 	}
 
 	static void addBiome(Biome biome) {

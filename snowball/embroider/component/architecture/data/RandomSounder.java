@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture.data;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.CustomEntity;
+import com.snowball.embroider.entity.CustomEntity;
 import com.snowball.embroider.util.component.CompSound;
 import com.snowball.embroider.util.Utils;
 
@@ -61,7 +61,7 @@ public class RandomSounder extends NativeComponent {
 	 * @param random random extra time added to {@code waitTime}
 	 * @param sounds sounds played
 	 */
-	public RandomSounder(float waitTime, float random, SoundFile[] sounds) {
+	public RandomSounder(float waitTime, float random, SoundFile... sounds) {
 		if (waitTime + random > 0) {
 			this.time = waitTime;
 			this.random = random;

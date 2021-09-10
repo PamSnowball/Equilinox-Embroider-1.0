@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.CustomEntity;
+import com.snowball.embroider.entity.CustomEntity;
 import com.snowball.embroider.util.Utils;
 
 import java.util.ArrayList;
@@ -130,6 +130,7 @@ public class Ai extends NativeComponent {
 		public Collection<String> load(CustomEntity entity) {
 			List<String> brain = new ArrayList<>(super.load(entity));
 
+			entity.setHasEggStage();
 			if (entity.getStages() == 3) {
 				brain.add(Utils.value("minIdle", minIdleTime, "maxIdle", maxIdleTime, "stayOnLand", (swims ? 0 : 1)));
 			}
@@ -191,7 +192,10 @@ public class Ai extends NativeComponent {
 		public Collection<String> load(CustomEntity entity) {
 			List<String> brain = new ArrayList<>(super.load(entity));
 
-			if (entity.getStages() == 2 && (minIdleTime != 7.0F || maxIdleTime != 15.0F)) brain.add(Utils.value(";minIdleTime", minIdleTime, "maxIdleTime") + maxIdleTime);
+			entity.setHasEggStage();
+			if (entity.getStages() == 2 && (minIdleTime != 7.0F || maxIdleTime != 15.0F)) {
+				brain.add(Utils.value(";minIdleTime", minIdleTime, "maxIdleTime") + maxIdleTime);
+			}
 
 			return brain;
 		}

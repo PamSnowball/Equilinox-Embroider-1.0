@@ -1,7 +1,5 @@
 package com.snowball.embroider.util;
 
-import org.lwjgl.util.vector.Vector3f;
-
 public class Vector {
 	private final float x;
 	private final float y;
@@ -11,6 +9,13 @@ public class Vector {
 		this.x = (float) (x / 255D);
 		this.y = (float) (y / 255D);
 		this.z = (float) (z / 255D);
+	}
+
+	public Vector(double d) {
+		float f = (float) (d / 255D);
+		this.x = f;
+		this.y = f;
+		this.z = f;
 	}
 	
 	public Vector(String hex) {
@@ -44,10 +49,6 @@ public class Vector {
 	
 	public float getZ() {
 		return z;
-	}
-
-	public static Vector valueOf(Vector3f vector) {
-		return new Vector((int) vector.getX(), (int) vector.getY(), (int) vector.getZ());
 	}
 
 	@Override

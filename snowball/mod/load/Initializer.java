@@ -1,6 +1,6 @@
 package com.snowball.mod.load;
 
-import com.snowball.embroider.CustomEntity;
+import com.snowball.embroider.entity.CustomEntity;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,5 +1,6 @@
 package com.snowball.embroider.component.blueprint;
 
+import componentArchitecture.ComponentLoader;
 import componentArchitecture.ComponentType;
 
 public class CustomComponentType extends ComponentType {
@@ -11,6 +12,10 @@ public class CustomComponentType extends ComponentType {
 	public CustomComponentType(boolean dynamic, boolean active, String component) {
 		this.dynamic = dynamic;
 		this.active = active;
-		this.component = component;
+		this.component = "CUSTOM_" + component;
+	}
+
+	public void set(ComponentLoader loader) {
+		this.loader = loader;
 	}
 }

@@ -6,80 +6,72 @@ import utils.CSVReader;
 import java.util.*;
 
 public class BlueprintUtils {
-	private BlueprintUtils() {
-		throw new IllegalStateException("Utility Class!");
+	private BlueprintUtils() {}
+
+	static Collection<String> load(Comp comp) {
+		List<String> component = new ArrayList<>();
+
+		if (comp == null) {
+			return component;
+		}
+
+		component.add(comp.name + ";");
+		for (Map.Entry<String, Object> entry : comp.map.entrySet()) {
+			boolean optional = false;
+			String label = entry.getKey();
+			if (label.startsWith("optional")) {
+				label = label.substring(8);
+				optional = true;
+			}
+
+			component.add(writeType(entry.getValue(), label, optional) + ";");
+		}
+
+		return component;
 	}
 
-	static List<Object> readMap(Map<Object, Boolean> map, CSVReader reader) {
-		List<Object> os = new ArrayList<>();
-		for (int i = 0; i < map.size(); i++) {
-			Object[] o = map.keySet().toArray();
-			Boolean[] b = map.values().toArray(new Boolean[0]);
-			if (Boolean.TRUE.equals(b[i]) && !(o[i] instanceof Float[]) && !(o[i] instanceof Integer[]) && !(o[i] instanceof Long))
-				reader.getNextString();
 
-			else if (o[i] instanceof float[]) {
-				os.add(reader.getNextLabelFloatArray());
-				map.replace(o[i], true);
-			} else if (o[i] instanceof int[]) {
-				os.add(reader.getNextLabelIntArray());
-				map.replace(o[i], true);
-			} else if (o[i] instanceof Vector) os.add(reader.getNextVector());
-			else if (o[i] instanceof String) os.add(reader.getNextString());
-			else if (o[i] instanceof Boolean) os.add(reader.getNextBool());
-			else if (o[i] instanceof Float) os.add(reader.getNextFloat());
-			else if (o[i] instanceof Integer) os.add(reader.getNextInt());
-			else if (o[i] instanceof Long) {
-				os.add(reader.getNextLong());
-				map.replace(o[i], false);
+	private static String writeType(Object o, String label, boolean b) {
+		if (o instanceof Boolean) {
+			return label + ';' + ((boolean) o ? "0" : "1");
+		} else {
+			float[] fs;
+			if (o instanceof float[]) {
+				fs = (float[]) o;
+			} else if (o instanceof int[]) {
+				int[] is = (int[]) o;
+				fs = new float[is.length];
+				for (int i = 0; i < is.length; i++) {
+					fs[i] = is[i];
+				}
+			} else return elseZero(o, label, b);
+
+			StringBuilder builder = new StringBuilder();
+			builder.append(fs.length).append(";");
+			for (float f : fs) builder.append(f);
+			return builder.toString();
+		}
+	}
+
+	private static String elseZero(Object o, String label, boolean b) {
+		if (o == null) {
+			return "";
+		}
+
+		if (b) {
+			if (o instanceof Number && ((Number) o).floatValue() != 0) {
+				return label + ';' + o;
+			} else {
+				return "";
 			}
 		}
 
-		return os;
+		return label + ';' + o;
 	}
-	
 
-	static Collection<String> load(List<Object> os, Map<Boolean, String> labels, String name) {
-		List<String> component = new ArrayList<>();
-		
-		for (int i = 0; i < os.size(); i++) {
-			String label = (String) labels.values().toArray()[i];
-
-			if (Boolean.TRUE.equals(labels.keySet().toArray()[i]) && label != null) component.add(label);
-
-			component.add(name);
-
-			component.addAll(loadObjects(os.get(i)));
-		}
-
-		return component;
-	}
-	
-	private static List<String> loadObjects(Object o) {
-		List<String> component = new ArrayList<>();
-		if (o instanceof float[]) {
-			float[] floats = (float[]) o;
-			component.add(((float[]) o).length + ";");
-			for (float f : floats) component.add(f + ";");
-		} else if (o instanceof int[]) {
-			component.add(((int[]) o).length + ";");
-			for (int i : (int[]) o) component.add(i + ";");
-		} else if (o instanceof Boolean) {
-			component.add((Boolean.TRUE.equals(o) ? 1 : 0) + ";");
-		} else if (o instanceof Integer ||
-				o instanceof String ||
-				o instanceof Vector ||
-				o instanceof Float ||
-				o instanceof Long) {
-			component.add(o + ";");
-		}
-
-		return component;
-	}
-	
 	public static Map<Boolean, String> mapLabels(Map<Object, Boolean> map, List<String> labels) {
 		Map<Boolean, String> labelMap = new HashMap<>();
-		
+
 		for (int i = 0; i < map.size(); i++) {
 			Boolean[] b = map.values().toArray(new Boolean[0]);
 			if (Boolean.TRUE.equals(b[i])) {
@@ -90,5 +82,33 @@ public class BlueprintUtils {
 		}
 
 		return labelMap;
+	}
+
+	public static void read(Map<String, Object> map, CSVReader reader) {
+		String label;
+		for (Map.Entry<String, Object> entry : map.entrySet()) {
+			label = entry.getKey();
+
+			if (label.startsWith("optional")) {
+				if (!reader.isEndOfLine()) {
+					readEntry(entry.getValue(), reader);
+				}
+			} else {
+				readEntry(entry.getValue(), reader);
+			}
+ 		}
+	}
+
+	private static void readEntry(Object o, CSVReader reader) {
+		if (!(o instanceof Long)) reader.getNextString();
+
+		if (o instanceof float[]) reader.getNextLabelFloatArray();
+		else if (o instanceof int[]) reader.getNextLabelIntArray();
+		else if (o instanceof Vector) reader.getNextLabelVector();
+		else if (o instanceof String) reader.getNextLabelString();
+		else if (o instanceof Boolean) reader.getNextLabelBool();
+		else if (o instanceof Float) reader.getNextLabelFloat();
+		else if (o instanceof Integer) reader.getNextLabelInt();
+		else if (o instanceof Long) reader.getNextLong();
 	}
 }

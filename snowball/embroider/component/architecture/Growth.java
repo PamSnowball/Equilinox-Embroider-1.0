@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.CustomEntity;
+import com.snowball.embroider.entity.CustomEntity;
 import com.snowball.embroider.util.Utils;
 
 import java.util.ArrayList;
@@ -18,7 +18,8 @@ public class Growth extends NativeComponent {
 	/**
 	 * Constructs the GROWTH component which is used by all living entities to set life cycle. <br>
 	 * It is one of the most important components, and it must be implemented very carefully. <br>
-	 * Growth time has a standard deviation of thirty percent, must be a fraction of entity lifespan defined by. <p>
+	 * Growth time has a standard deviation of thirty percent, must be a fraction of entity lifespan
+	 * defined by life component. <p>
 	 *
 	 * @param averageGrowthTime average time in game hours that entity grows up.
 	 */

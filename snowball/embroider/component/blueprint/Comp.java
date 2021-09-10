@@ -2,57 +2,61 @@ package com.snowball.embroider.component.blueprint;
 
 import blueprints.Blueprint;
 import com.snowball.embroider.component.IComponent;
+import componentArchitecture.Component;
+import componentArchitecture.ComponentBlueprint;
 import componentArchitecture.ComponentLoader;
-import componentArchitecture.Requirement;
-import com.snowball.embroider.CustomEntity;
-import com.snowball.embroider.ModelConverter;
+import com.snowball.embroider.entity.CustomEntity;
+import componentArchitecture.ComponentType;
+import speciesInformation.SpeciesInfoLine;
+import speciesInformation.SpeciesInfoType;
 import utils.CSVReader;
 
 import java.util.*;
 
-public abstract class Comp implements ComponentLoader, IComponent {
-	private final CustomComponentType type;
-	
-	private final CustomRequirement requirement;
-	private final CustomComponent component;
-	
-	private final boolean dynamic;
-	private final boolean active;
-	
-	private final Map<Boolean, String> labels;
+public abstract class Comp extends ComponentBlueprint implements ComponentLoader, IComponent {
+	public static class CompData {
+		String s;
+		Object o;
 
-	private final String name;
+		public CompData(String s, Object o) {
+			this.s = s;
+			this.o = o;
+		}
+	}
 
-	private final int id;
+	final Map<String, Object> map = new HashMap<>();
 
-	private Map<Object, Boolean> map = new HashMap<>();
-	
-	private List<Object> os = new ArrayList<>();
+	CustomComponentType type;
+	Component component;
 
-	protected Comp(int id, Map<Object, Boolean> map, List<String> labels, CustomComponentType type, CustomComponent component, CustomRequirement requirement) {
-		this.labels = BlueprintUtils.mapLabels(map, labels);
+	String name;
+
+	int id;
+
+	protected void setData(CompData data) {
+		map.put(data.s, data.o);
+	}
+
+	protected Comp(int id, CustomComponentType type) {
+		super(type);
 
 		this.id = id;
 
-		this.requirement = requirement;
-		this.component = component;
 		this.type = type;
+		this.component = createInstance();
 
-		this.active = type.isActive();
+		type.set(this);
 
-		this.dynamic = type.dynamic;
-		this.name = type.component;
-
-		if (map.size() >= labels.size()) {
-			this.map = map;
-		} else {
-			ModelConverter.log("There are less labels than objects in your custom component");
-		}
+		this.name = type.component.toUpperCase(Locale.ROOT).replaceAll("[^A-Z_ ]", "").replace(" ", "_");
 	}
-	
+
+	public ComponentType getType() {
+		return type;
+	}
+
 	@Override
 	public Collection<String> load(CustomEntity entity) {
-		return BlueprintUtils.load(os, labels, name);
+		return BlueprintUtils.load(this);
 	}
 
 	@Override
@@ -64,31 +68,14 @@ public abstract class Comp implements ComponentLoader, IComponent {
 	public String toString() {
 		return name;
 	}
-	
-	public boolean isActive() {
-		return active;
-	}
-	
-	public boolean isDynamic() {
-		return dynamic;
-	}
-	
+
 	@Override
-	public Requirement loadRequirement(CSVReader reader) {
-		return requirement;
-	}
-	
-	@Override
-	public CustomComponentBlueprint load(CSVReader reader, Blueprint blueprint) {
-		if (map != null) os = BlueprintUtils.readMap(map, reader);
-		if (type != null && component != null) {
-			return new CustomComponentBlueprint(os, type, component);
-		}
-		
-		return null;
+	public ComponentBlueprint load(CSVReader reader, Blueprint blueprint) {
+		BlueprintUtils.read(map, reader);
+		return this;
 	}
 
-	public CustomComponentType getType() {
-		return type;
-	}
+	@Override public void delete() {}
+
+	@Override public void getInfo(Map<SpeciesInfoType, List<SpeciesInfoLine>> map) {}
 }

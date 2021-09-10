@@ -10,10 +10,10 @@ public class CustomSound implements CompSound {
 	
 	String name;
 	
-	public CustomSound(String name, boolean isOgg) {
-		this.name = name;
-		this.ogg = isOgg;
-	}
+public CustomSound(String name, boolean isOgg) {
+	this.name = name;
+	this.ogg = isOgg;
+}
 
 	@Override
 	public String getSound() {

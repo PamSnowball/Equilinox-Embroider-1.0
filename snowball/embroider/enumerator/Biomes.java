@@ -27,4 +27,9 @@ public enum Biomes {
 	public int getId() {
 		return biome.getId();
 	}
+
+	@Override
+	public String toString() {
+		return getBiome().toString();
+	}
 }

@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.CustomEntity;
+import com.snowball.embroider.entity.CustomEntity;
 import com.snowball.embroider.util.Vector;
 import com.snowball.embroider.util.Utils;
 import com.snowball.embroider.enumerator.Colours;
@@ -22,7 +22,7 @@ public class Material extends NativeComponent {
 	 * @param hasSecondNatural if true, entity can spawn with the second color of {@code colors}
 	 * @param colors colors that entity has and their prices
 	 */
-	public Material(boolean hasSecondNatural, CustomEntity.MaterialColor[] colors) {
+	public Material(boolean hasSecondNatural, CustomEntity.MaterialColor... colors) {
 		this.hasSecond = hasSecondNatural && colors.length > 1;
 		if (colors != null) {
 			colors = Arrays.stream(colors).sorted(Comparator.comparingInt(CustomEntity.MaterialColor::getPrice)).toArray(CustomEntity.MaterialColor[]::new);

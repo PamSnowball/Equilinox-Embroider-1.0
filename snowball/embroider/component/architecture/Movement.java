@@ -1,15 +1,13 @@
 package com.snowball.embroider.component.architecture;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.CustomEntity;
+import com.snowball.embroider.entity.CustomEntity;
 import com.snowball.embroider.util.Utils;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static java.lang.Character.getType;
 
@@ -229,6 +227,7 @@ public class Movement {
 			if (height > -5) {
 				move.add("height;" + height);
 				if (swimFactor > 0 || egg) {
+					if (egg) entity.setHasEggStage();
 					move.add(";eggStage;" + (egg ? 1 : 0));
 					move.add(";swimFactor;" + swimFactor);
 					if (inertia != 0) move.add(";inertia;" + inertia);
@@ -303,7 +302,7 @@ public class Movement {
 
 
 		/**
-		 * Constructs the gallop bird movement which is used by wolves, foxes, deer, squirrels and meerkats, it consists of galloping.
+		 * Constructs the gallop movement which is used by wolves, foxes, squirrels and meerkats, it consists of galloping.
 		 *
 		 * @param speed movement speed
 		 * @param bounce bouncing height
@@ -338,7 +337,7 @@ public class Movement {
 	
 	public static class SheepMovement extends BasicMovement {
 		/**
-		 * Constructs the gallop sheep movement which is used by sheep, it consists of jumping high while walking.
+		 * Constructs the sheep movement which is used by sheep, it consists of jumping high while walking.
 		 *
 		 * @param speed movement speed
 		 * @param bounce bouncing height

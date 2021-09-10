@@ -1,5 +1,6 @@
 package com.snowball.embroider.enumerator;
 
+import com.snowball.embroider.entity.CustomEntity.MaterialColor;
 import com.snowball.embroider.util.Vector;
 
 public enum Colours {
@@ -52,7 +53,15 @@ public enum Colours {
 	public Vector getColour() {
 		return colour;
 	}
-	
+
+	public MaterialColor setPrice(int price) {
+		return new MaterialColor(this.getColour(), price);
+	}
+
+	public static MaterialColor craft(Vector v, int price) {
+		return new MaterialColor(v, price);
+	}
+
 	public static String checkForColour(Vector colour) {
 		for (Colours e : values()) if (e.getColour() == colour) return e.name();
 		return "CUSTOM;" + colour.value();

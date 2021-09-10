@@ -1,10 +1,10 @@
-package com.snowball.embroider;
+package com.snowball.embroider.entity;
 
 import com.snowball.embroider.component.IComponent;
+import com.snowball.embroider.enumerator.classification.BaseClassification;
 import com.snowball.mod.load.Initializer;
 import com.snowball.embroider.util.Vector;
 import com.snowball.embroider.util.Utils;
-import javafx.scene.web.WebHistory;
 import resourceManagement.BlueprintRepository;
 import com.snowball.embroider.enumerator.classification.IClassifier;
 
@@ -15,10 +15,11 @@ public class CustomEntity implements IClassifier {
 	private boolean aquatic;
 
 	private final String classification;
-
 	private final String name;
 
 	private final float size;
+
+	private boolean custom = true;
 
 	protected boolean alwaysVisible = false;
 	protected boolean hasCustomIcon = false;
@@ -39,8 +40,8 @@ public class CustomEntity implements IClassifier {
 	protected List<String> components = new ArrayList<>();
 	protected StringBuilder newEntity = new StringBuilder();
 
-	public CustomEntity(int id, String name, IClassifier classification, float size, int stages) {
-		this.stages = stages;
+	public CustomEntity(int id, String name, BaseClassification classification, float size, int stages) {
+		this.stages = Math.max(stages, 1);
 
 		this.classification = classification.toString();
 
@@ -52,29 +53,35 @@ public class CustomEntity implements IClassifier {
 		this.size = size;
 	}
 
+	final void setBase() {
+		custom = false;
+	}
+
 	void init() {
 		firstLine(Math.max(size, 0));
 
 		pastLines(classification, height);
 	}
 
-	public final void setAquatic(float height) {
+	public final CustomEntity setAquatic(float height) {
 		this.height = height;
 		this.aquatic = true;
+		return this;
 	}
 
-	protected final void setSpecialData(int stage, boolean random, boolean visible) {
+	public final void setSpecialData(int stage, boolean random, boolean visible) {
 		mainStage = Math.max(stage, 0);
 
 		this.alwaysVisible = visible;
 		this.randomize = random;
 	}
 
-	protected final void setIconData(float size, float y) {
+	public final CustomEntity setIconData(float size, float y) {
 		iconSize = 1 / Math.max(size, 0.01F);
 		iconY = Math.max(y, 0);
 
 		this.hasCustomIcon = true;
+		return this;
 	}
 
 	public String load() {
@@ -84,7 +91,7 @@ public class CustomEntity implements IClassifier {
 	public static boolean isValid(CustomEntity entity) {
 		boolean valid = true;
 
-		if (entity.id <= 10000) {
+		if (entity.id <= 10000 && entity.custom) {
 			System.err.println(entity.getName() + " error: Id must be positive");
 			valid = false;
 		}
@@ -97,7 +104,7 @@ public class CustomEntity implements IClassifier {
 			}
 		}
 
-		if (entity.name == null) {
+		if (entity.name == null && entity.custom) {
 			System.err.println(entity.getName() + " error: Entity name is null");
 			valid = false;
 		}
@@ -120,6 +127,15 @@ public class CustomEntity implements IClassifier {
 
 	public int getStages() {
 		return stages;
+	}
+
+	private boolean egg;
+	public boolean hasEggStage() {
+		return egg;
+    }
+
+	public void setHasEggStage() {
+		this.egg = true;
 	}
 
 	public static class MaterialColor {
@@ -165,8 +181,9 @@ public class CustomEntity implements IClassifier {
 		return name;
 	}
 	
-	protected final void componentLoader(IComponent component) {
+	public final CustomEntity loadComp(IComponent component) {
 		comps.add(component); Utils.append(new ArrayList<>(component.load(this)), components);
+		return this;
 	}
 	
 	public List<String> loadComponents() {

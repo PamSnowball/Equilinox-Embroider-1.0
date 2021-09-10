@@ -41,7 +41,7 @@ public class Environment {
 		float ideal;
 		float influence;
 
-		public EnvironmentLikedBiome(boolean growsBarren, Biome[] likedBiomes, float ideal, float healthInfluence) {
+		public EnvironmentLikedBiome(boolean growsBarren, float ideal, float healthInfluence, Biome... likedBiomes) {
 			this.influence = healthInfluence;
 			this.barren = growsBarren;
 			this.biomes = likedBiomes;
@@ -55,7 +55,7 @@ public class Environment {
 			if (biomes != null) { 
 				environment.add(Utils.value(I, 2, "barren", barren ? 1 : 0, "likedBiomes", biomes.length));
 				for (Biome biome : biomes) environment.add(biome.getId() + ";");
-				environment.add(Utils.value("idealFactor", ideal, IN, influence + ';'));
+				environment.add(Utils.value("idealFactor", ideal, IN, influence));
 			}
 			
 			return environment;
@@ -105,8 +105,8 @@ public class Environment {
 		
 		float influence;
 		
-		public EnvironmentLikedSpecies(IClassifier[] likedSpeciesClassification, float healthInfluence) {
-			this.species = likedSpeciesClassification;
+		public EnvironmentLikedSpecies(float healthInfluence, IClassifier... classification) {
+			this.species = classification;
 			this.influence = healthInfluence;
 		}
 		
@@ -127,7 +127,7 @@ public class Environment {
 		
 		float influence;
 		
-		public EnvironmentDislikedSpecies(IClassifier[] dislikedSpeciesClassification, float healthInfluence) {
+		public EnvironmentDislikedSpecies(float healthInfluence, IClassifier... dislikedSpeciesClassification) {
 			this.species = dislikedSpeciesClassification;
 			this.influence = healthInfluence;
 		}

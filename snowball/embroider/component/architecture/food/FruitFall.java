@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture.food;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.CustomEntity;
+import com.snowball.embroider.entity.CustomEntity;
 import com.snowball.embroider.enumerator.classification.IClassifier;
 import com.snowball.embroider.util.Utils;
 

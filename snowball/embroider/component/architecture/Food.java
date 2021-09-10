@@ -1,9 +1,9 @@
 package com.snowball.embroider.component.architecture;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.CustomEntity;
-import com.snowball.embroider.ModelConverter;
-import com.snowball.embroider.util.component.Death.FadeDeath;
+import com.snowball.embroider.entity.CustomEntity;
+import com.snowball.embroider.entity.ModelConverter;
+import com.snowball.embroider.util.component.Death.Fade;
 import com.snowball.embroider.util.component.CompDeath;
 import com.snowball.embroider.util.Utils;
 import com.snowball.embroider.enumerator.FoodTypes;
@@ -16,7 +16,7 @@ public class Food extends NativeComponent {
 	static class Nutrient {
 		String name;
 
-		CompDeath death = new FadeDeath(0.5F);
+		CompDeath death = new Fade(0.5F);
 
 		int portions = 1;
 

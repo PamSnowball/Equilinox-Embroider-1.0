@@ -2,9 +2,8 @@ package com.snowball.embroider.component.architecture;
 
 import biomes.Biome;
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.CustomEntity;
+import com.snowball.embroider.entity.CustomEntity;
 import com.snowball.embroider.enumerator.Biomes;
-import com.snowball.embroider.util.Vector;
 import com.snowball.embroider.util.Utils;
 
 import java.util.Collection;
@@ -34,7 +33,7 @@ public class Spreader extends NativeComponent {
 	@Override
 	public Collection<String> load(CustomEntity entity) {
 		if (biome == null) biome = Biomes.GRASSLAND.getBiome();
-		return Collections.singleton(Utils.value("SPREADER", biome.getId(), 0, 0, 0, strength, distance));
+		return Collections.singleton(Utils.value("SPREADER", biome.getId(), 0.1, 0.1, 0.1, strength, distance));
 	}
 	
 	@Override

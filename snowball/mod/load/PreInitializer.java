@@ -2,7 +2,8 @@ package com.snowball.mod.load;
 
 import aiComponent.AiProgramType;
 import biomes.Biome;
-import com.snowball.embroider.CustomEntity;
+import com.snowball.embroider.component.blueprint.CustomSound;
+import com.snowball.embroider.entity.CustomEntity;
 import com.snowball.embroider.component.blueprint.Comp;
 import com.snowball.embroider.component.blueprint.CustomAi;
 import com.snowball.embroider.enumerator.classification.IClassifier;

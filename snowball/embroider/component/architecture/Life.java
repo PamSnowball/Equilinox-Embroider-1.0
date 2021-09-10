@@ -1,7 +1,7 @@
 package com.snowball.embroider.component.architecture;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.CustomEntity;
+import com.snowball.embroider.entity.CustomEntity;
 import com.snowball.embroider.util.component.Breed;
 import com.snowball.embroider.util.component.CompDeath;
 import com.snowball.embroider.util.component.CompEnvironment;
@@ -44,7 +44,7 @@ public class Life extends NativeComponent {
 	 * @param death death type
 	 * @param lifeRequirements environment requirements
 	 */
-	public Life(float averagePopulation, float averageLifespan, float[] populationFactors, Breed breed, CompDeath death, CompEnvironment[] lifeRequirements) {
+	public Life(float averagePopulation, float averageLifespan, float[] populationFactors, Breed breed, CompDeath death, CompEnvironment... lifeRequirements) {
 		this.population = averagePopulation;
 		this.lifespan = averageLifespan;
 		this.factors = populationFactors;
@@ -62,7 +62,7 @@ public class Life extends NativeComponent {
 		List<String> life = new ArrayList<>();
 
 		life.add(Utils.value("LIFE;averagePop", population, "averageLife", lifespan, "popFactors", factors == null ? 0 : factors.length));
-		if (factors != null) for (int i = 0; i < Math.min(factors.length, entity.getType().length()) - 1; i++) life.add(factors[i] + ";");
+		if (factors != null) for (int i = 0; i < Math.min(factors.length, entity.getType().length()); i++) life.add(factors[i] + ";");
 
 		life.addAll(breed.breed());
 		life.addAll(death.death());

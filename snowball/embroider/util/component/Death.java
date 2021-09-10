@@ -8,10 +8,10 @@ import java.util.Collections;
 import java.util.List;
 
 public class Death {
-	public static class FadeDeath implements CompDeath {
+	public static class Fade implements CompDeath {
 		float fadeTime;
 			
-		public FadeDeath(float fadeTime) {
+		public Fade(float fadeTime) {
 			this.fadeTime = fadeTime;
 		}
 
@@ -20,10 +20,10 @@ public class Death {
 		}
 	}
 	
-	public static class FallDeath implements CompDeath {
+	public static class Fall implements CompDeath {
 		Particle particle;
 		
-		boolean hasParticleEffect;
+		boolean hasParticleEffect = false;
 		boolean useEntityColour;
 		
 		float explodeTime;
@@ -33,26 +33,24 @@ public class Death {
 		
 		int[] modelCount;
 				
-		public FallDeath(float fallTime, float totalTime, float fallAngle) {
+		public Fall(float fallTime, float totalTime, float fallAngle) {
 			this.fallTime = fallTime;
 			this.totalTime = totalTime;
 			this.angle = fallAngle;
 		}
-		
-		public FallDeath(float fallTime, float totalTime, float fallAngle, float explodeTime, 
-				Particle particle, boolean useEntityColour) {
-			this.fallTime = fallTime;
-			this.totalTime = totalTime;
-			this.angle = fallAngle;
+
+		public Fall setParticle(float explodeTime, Particle particle, boolean useEntityColour) {
 			this.explodeTime = explodeTime;
 			this.useEntityColour = useEntityColour;
 			this.particle = particle;
+			hasParticleEffect = true;
+			return this;
 		}
-			
+
 		public Collection<String> death() {
 			List<String> death = new ArrayList<>();
 			
-			death.add(Utils.value("FALL_DEATH", "fallTime", fallTime, "totalTime", totalTime, "fallAngle", angle));
+			death.add(Utils.value("FALL_DEATH", "fallTime", fallTime, "totalTime", totalTime, "fallAngle", angle, "hasParticle", hasParticleEffect ? 1 : 0));
 			if (hasParticleEffect) {
 				death.add(Utils.value("explodeTime", explodeTime, "useMaterial", useEntityColour ? 1 : 0));
 				particle.deathPrint(death);
@@ -64,12 +62,12 @@ public class Death {
 		}
 	}
 	
-	public static class FloatDeath implements CompDeath {
+	public static class Float implements CompDeath {
 		float deathRot = 180;
 		
-		public FloatDeath() {}
+		public Float() {}
 		
-		public FloatDeath(float deathRotation) {
+		public Float(float deathRotation) {
 			this.deathRot = deathRotation;
 		}
 			
@@ -78,13 +76,13 @@ public class Death {
 		}
 	}
 
-	public static class SpawnDeath implements CompDeath {
+	public static class Spawn implements CompDeath {
 		boolean growth;
 		int min;
 		int max;
 		int id;
 			
-		public SpawnDeath(int entityId, int minCount, int maxCount, boolean growth) {
+		public Spawn(int entityId, int minCount, int maxCount, boolean growth) {
 			this.growth = growth;
 			this.min = minCount;
 			this.max = maxCount;
@@ -96,12 +94,12 @@ public class Death {
 		}
 	}
 	
-	public static class UpDownDeath implements CompDeath {
+	public static class UpDown implements CompDeath {
 		Particle particle;
 		
 		float speed;
 		
-		public UpDownDeath(float speed, Particle particle) {
+		public UpDown(float speed, Particle particle) {
 			this.speed = speed;
 			this.particle = particle;
 		}

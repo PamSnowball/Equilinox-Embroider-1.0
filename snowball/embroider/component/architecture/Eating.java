@@ -1,43 +1,57 @@
 package com.snowball.embroider.component.architecture;
 
 import com.snowball.embroider.component.NativeComponent;
-import com.snowball.embroider.CustomEntity;
+import com.snowball.embroider.entity.CustomEntity;
 import com.snowball.embroider.util.Utils;
 import com.snowball.embroider.enumerator.Animations;
 import com.snowball.embroider.enumerator.FoodTypes;
 import com.snowball.embroider.enumerator.classification.IClassifier;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
 public class Eating extends NativeComponent {
 	public static class Eat {
 		Animations animation;
-		IClassifier prey;
+		IClassifier[] preys;
 		FoodTypes food;
 
 		/**
 		 * Eating behaviour data.
 		 *
 		 * @param animation animation played when eating
-		 * @param prey entities that are eaten
 		 * @param food type of food eaten
+		 * @param preys entities that are eaten
 		 */
-		public Eat(Animations animation, IClassifier prey, FoodTypes food) {
+		public Eat(Animations animation, FoodTypes food, IClassifier... preys) {
 			this.animation = animation;
-			this.prey = prey;
+			this.preys = preys;
 			this.food = food;
 		}
 
 		public static Eat[] get(Eat[] eats) {
-			for (Eat eat : eats) {
-				if (eat.prey == null || eat.animation == null || eat.food == null) {
+			Eat[] newEats = null;
+
+			for (int i = 0, eatsLength = eats.length; i < eatsLength; i++) {
+				Eat eat = eats[i];
+				if (eat.preys == null || eat.animation == null || eat.food == null) {
 					System.err.println(Eat.class.getName() + ": null parameter");
 
-					return new Eat[] {};
+					return new Eat[]{};
+				} else {
+					Eat[] preys = Arrays.stream(eat.preys).map(classifier -> new Eat(eat.animation, eat.food, classifier)).toArray(Eat[]::new);
+					newEats = new Eat[eats.length];
+
+					System.arraycopy(eats, 0, newEats, i + preys.length, eats.length - i);
 				}
 			}
+
+			if (newEats != null) {
+				return newEats;
+			}
+
 			return eats;
 		}
 	}
@@ -64,7 +78,7 @@ public class Eating extends NativeComponent {
 	 * @param eats sets food eaten
 	 * @see Eat
 	 */
-	public Eating(int maxHunger, float hunger, float radius, Eat[] eats) {
+	public Eating(int maxHunger, float hunger, float radius, Eat... eats) {
 		this.maxHunger = Math.max(maxHunger, 0);
 		this.hunger = Math.max(hunger, 0);
 		this.radius = Math.max(radius, 0);
@@ -96,14 +110,19 @@ public class Eating extends NativeComponent {
 		List<String> eat = new ArrayList<>();
 
 		eat.add(Utils.value("maxHunger", maxHunger, "hungerPerHour", hunger, "eatRadius", radius));
-		eat.add(Utils.value("eatAnims", eats.length));
-		for (Eat value : eats) eat.add(value.animation.getId() + ";");
-		eat.add(Utils.value("dietOptionCount", eats.length));
+		Animations[] animations = Arrays.stream(eats).map(value -> value.animation).distinct().sorted().toArray(Animations[]::new);
+		int[] ids = Arrays.stream(animations).mapToInt(Animations::ordinal).toArray();
+		eat.add(Utils.value("eatAnims", ids.length));
+		for (int id : ids) eat.add(id + ";");
 
-		for (Eat value : eats) eat.add(Utils.value(value.prey, value.food, value.animation));
+		eat.add(Utils.value("dietOptionCount", Arrays.stream(eats).mapToInt(food -> food.preys.length).count()));
+		for (Eat value : eats) for (IClassifier prey : value.preys) eat.add(Utils.value(prey, value.food, Arrays.asList(animations).indexOf(value.animation)));
 
 		if (runs || ai != 0) eat.add(Utils.value("runsToFood", runs, "aiId", ai));
-		if (egg) eat.add("hasEggStage;true");
+		if (egg) {
+			entity.setHasEggStage();
+			eat.add("hasEggStage;true");
+		}
 
 		return eat;
 	}
