@@ -1,7 +1,8 @@
 package com.snowball.embroider.util;
 
 import java.io.File;
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
 
 public class Utils {
 	private Utils() { throw new IllegalStateException("Utility Class!"); }

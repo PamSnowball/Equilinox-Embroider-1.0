@@ -1,6 +1,5 @@
 package com.snowball.embroider.enumerator;
 
-import com.snowball.embroider.component.blueprint.CustomSound;
 import com.snowball.embroider.util.component.CompSound;
 
 public enum Sounds implements CompSound {

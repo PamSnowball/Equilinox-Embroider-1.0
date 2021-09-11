@@ -1,8 +1,8 @@
 package com.snowball.embroider.util.requirement;
 
-import com.snowball.embroider.util.component.CompRequirement;
-import com.snowball.embroider.util.Utils;
 import com.snowball.embroider.enumerator.classification.IClassifier;
+import com.snowball.embroider.util.Utils;
+import com.snowball.embroider.util.component.CompRequirement;
 
 import java.util.Collection;
 import java.util.Collections;

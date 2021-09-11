@@ -1,7 +1,7 @@
 package com.snowball.embroider.util.component;
 
-import com.snowball.embroider.util.Vector;
 import com.snowball.embroider.util.Utils;
+import com.snowball.embroider.util.Vector;
 
 import java.util.ArrayList;
 import java.util.List;

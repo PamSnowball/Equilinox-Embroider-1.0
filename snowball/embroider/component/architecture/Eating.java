@@ -2,10 +2,10 @@ package com.snowball.embroider.component.architecture;
 
 import com.snowball.embroider.component.NativeComponent;
 import com.snowball.embroider.entity.CustomEntity;
-import com.snowball.embroider.util.Utils;
 import com.snowball.embroider.enumerator.Animations;
 import com.snowball.embroider.enumerator.FoodTypes;
 import com.snowball.embroider.enumerator.classification.IClassifier;
+import com.snowball.embroider.util.Utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,27 +32,19 @@ public class Eating extends NativeComponent {
 		}
 
 		public static Eat[] get(Eat[] eats) {
-			Eat[] newEats = null;
+			List<Eat> newEats = new ArrayList<>();
 
-			for (int i = 0, eatsLength = eats.length; i < eatsLength; i++) {
-				Eat eat = eats[i];
+			for (Eat eat : eats) {
 				if (eat.preys == null || eat.animation == null || eat.food == null) {
 					System.err.println(Eat.class.getName() + ": null parameter");
 
 					return new Eat[]{};
 				} else {
-					Eat[] preys = Arrays.stream(eat.preys).map(classifier -> new Eat(eat.animation, eat.food, classifier)).toArray(Eat[]::new);
-					newEats = new Eat[eats.length];
-
-					System.arraycopy(eats, 0, newEats, i + preys.length, eats.length - i);
+					Arrays.stream(eat.preys).map(classifier -> new Eat(eat.animation, eat.food, classifier)).forEach(newEats::add);
 				}
 			}
 
-			if (newEats != null) {
-				return newEats;
-			}
-
-			return eats;
+			return newEats.toArray(new Eat[0]);
 		}
 	}
 
@@ -109,7 +101,7 @@ public class Eating extends NativeComponent {
 	public Collection<String> load(CustomEntity entity) {
 		List<String> eat = new ArrayList<>();
 
-		eat.add(Utils.value("maxHunger", maxHunger, "hungerPerHour", hunger, "eatRadius", radius));
+		eat.add(Utils.value("EATING;maxHunger", maxHunger, "hungerPerHour", hunger, "eatRadius", radius));
 		Animations[] animations = Arrays.stream(eats).map(value -> value.animation).distinct().sorted().toArray(Animations[]::new);
 		int[] ids = Arrays.stream(animations).mapToInt(Animations::ordinal).toArray();
 		eat.add(Utils.value("eatAnims", ids.length));

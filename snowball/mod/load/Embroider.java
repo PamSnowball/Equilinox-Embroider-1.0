@@ -3,15 +3,14 @@ package com.snowball.mod.load;
 import biomes.Biome;
 import classification.Classifier;
 import com.snowball.embroider.component.blueprint.Comp;
-import componentArchitecture.ComponentType;
-import resourceManagement.BlueprintRepository;
 import com.snowball.embroider.entity.CustomEntity;
 import com.snowball.embroider.enumerator.classification.IClassifier;
+import componentArchitecture.ComponentType;
+import resourceManagement.BlueprintRepository;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 class Embroider {
 	private Embroider() {}

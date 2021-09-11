@@ -7,19 +7,17 @@ import com.snowball.embroider.component.architecture.data.RandomSounder;
 import com.snowball.embroider.component.architecture.data.Sound;
 import com.snowball.embroider.component.architecture.food.Drop;
 import com.snowball.embroider.component.architecture.special.Sleep;
-import com.snowball.embroider.entity.CustomEntity.MaterialColor;
 import com.snowball.embroider.enumerator.*;
 import com.snowball.embroider.enumerator.classification.BaseClassification;
 import com.snowball.embroider.enumerator.classification.specific.AnimalClassification;
-import com.snowball.embroider.enumerator.classification.specific.LargePlantClassification;
 import com.snowball.embroider.enumerator.classification.specific.NonLivingClassification;
 import com.snowball.embroider.enumerator.classification.specific.SmallPlantClassifications;
 import com.snowball.embroider.util.Vector;
 import com.snowball.embroider.util.component.Breed;
-import com.snowball.embroider.util.component.CompEnvironment;
 import com.snowball.embroider.util.component.Death;
 import com.snowball.embroider.util.component.Environment;
-import com.snowball.embroider.util.requirement.*;
+import com.snowball.embroider.util.requirement.ReqNearbySpecies;
+import com.snowball.embroider.util.requirement.ReqSpecieInBiome;
 
 public enum EntityRepository {
     SHEEP() {

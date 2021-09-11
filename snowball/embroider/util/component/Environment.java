@@ -1,9 +1,8 @@
 package com.snowball.embroider.util.component;
 
 import biomes.Biome;
-import com.snowball.embroider.util.Utils;
-import com.snowball.embroider.enumerator.Biomes;
 import com.snowball.embroider.enumerator.classification.IClassifier;
+import com.snowball.embroider.util.Utils;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -3,48 +3,47 @@ package com.snowball.embroider.component.blueprint;
 import com.snowball.embroider.util.Vector;
 import utils.CSVReader;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class BlueprintUtils {
 	private BlueprintUtils() {}
 
-	static Collection<String> load(Comp comp) {
+	static Collection<String> load(String name, List<Comp.CompData> list) {
 		List<String> component = new ArrayList<>();
 
-		if (comp == null) {
+		if (name == null || list == null) {
 			return component;
 		}
 
-		component.add(comp.name + ";");
-		for (Map.Entry<String, Object> entry : comp.map.entrySet()) {
-			boolean optional = false;
-			String label = entry.getKey();
-			if (label.startsWith("optional")) {
-				label = label.substring(8);
-				optional = true;
-			}
-
-			component.add(writeType(entry.getValue(), label, optional) + ";");
+		component.add(name + ";");
+		for (Comp.CompData data : list) {
+			component.add(writeType(data) + ";");
 		}
 
 		return component;
 	}
 
 
-	private static String writeType(Object o, String label, boolean b) {
-		if (o instanceof Boolean) {
-			return label + ';' + ((boolean) o ? "0" : "1");
+	private static String writeType(Comp.CompData data) {
+		final boolean optional = data.optional;
+
+		final String label = data.label;
+		final Object value = data.value;
+		if (value instanceof Boolean) {
+			return label + ';' + ((boolean) value ? "0" : "1");
 		} else {
 			float[] fs;
-			if (o instanceof float[]) {
-				fs = (float[]) o;
-			} else if (o instanceof int[]) {
-				int[] is = (int[]) o;
+			if (value instanceof float[]) {
+				fs = (float[]) value;
+			} else if (value instanceof int[]) {
+				int[] is = (int[]) value;
 				fs = new float[is.length];
 				for (int i = 0; i < is.length; i++) {
 					fs[i] = is[i];
 				}
-			} else return elseZero(o, label, b);
+			} else return elseZero(value, label, optional);
 
 			StringBuilder builder = new StringBuilder();
 			builder.append(fs.length).append(";");
@@ -53,55 +52,37 @@ public class BlueprintUtils {
 		}
 	}
 
-	private static String elseZero(Object o, String label, boolean b) {
-		if (o == null) {
+	private static String elseZero(Object value, String label, boolean optional) {
+		if (value == null) {
 			return "";
 		}
 
-		if (b) {
-			if (o instanceof Number && ((Number) o).floatValue() != 0) {
-				return label + ';' + o;
+		if (optional) {
+			if (value instanceof Number && ((Number) value).floatValue() != 0) {
+				return label + ';' + value;
 			} else {
 				return "";
 			}
 		}
 
-		return label + ';' + o;
+		return label + ';' + value;
 	}
 
-	public static Map<Boolean, String> mapLabels(Map<Object, Boolean> map, List<String> labels) {
-		Map<Boolean, String> labelMap = new HashMap<>();
-
-		for (int i = 0; i < map.size(); i++) {
-			Boolean[] b = map.values().toArray(new Boolean[0]);
-			if (Boolean.TRUE.equals(b[i])) {
-				labelMap.put(b[i], labels.get(i));
-			} else {
-				labelMap.put(b[i], null);
-			}
-		}
-
-		return labelMap;
-	}
-
-	public static void read(Map<String, Object> map, CSVReader reader) {
-		String label;
-		for (Map.Entry<String, Object> entry : map.entrySet()) {
-			label = entry.getKey();
-
-			if (label.startsWith("optional")) {
+	public static void read(List<Comp.CompData> list, CSVReader reader) {
+		for (Comp.CompData data : list) {
+			if (data.optional) {
 				if (!reader.isEndOfLine()) {
-					readEntry(entry.getValue(), reader);
+					readEntry(data.value, reader);
+				} else {
+					break;
 				}
 			} else {
-				readEntry(entry.getValue(), reader);
+				readEntry(data.value, reader);
 			}
- 		}
+		}
 	}
 
 	private static void readEntry(Object o, CSVReader reader) {
-		if (!(o instanceof Long)) reader.getNextString();
-
 		if (o instanceof float[]) reader.getNextLabelFloatArray();
 		else if (o instanceof int[]) reader.getNextLabelIntArray();
 		else if (o instanceof Vector) reader.getNextLabelVector();

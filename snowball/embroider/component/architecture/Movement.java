@@ -9,8 +9,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import static java.lang.Character.getType;
-
 /** Constructs the MOVEMENT component which is used by all animals to set movement. */
 public class Movement {
 	private Movement() {

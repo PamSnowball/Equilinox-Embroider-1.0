@@ -1,10 +1,7 @@
 package com.snowball.embroider.enumerator.classification.specific;
 
-import aiComponent.AiProgramType;
 import com.snowball.embroider.enumerator.classification.IClassifier;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 

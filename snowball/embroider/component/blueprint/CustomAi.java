@@ -6,19 +6,19 @@ import com.snowball.embroider.component.NativeComponent;
 import com.snowball.embroider.entity.CustomEntity;
 import utils.CSVReader;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
+import java.util.List;
 
 public abstract class CustomAi extends NativeComponent implements AiProgramBlueprint {
-	protected Map<String, Object> map;
+	protected List<Comp.CompData> list = new ArrayList<>();
 
 	private final AiProgramType type;
 
 	private final String name;
 
 	protected void setData(Comp.CompData data) {
-		map.put(data.s, data.o);
+		list.add(data);
 	}
 
 	protected CustomAi(String name) {
@@ -39,7 +39,7 @@ public abstract class CustomAi extends NativeComponent implements AiProgramBluep
 
 	@Override
 	public void loadSettings(CSVReader reader) {
-		BlueprintUtils.read(map, reader);
+		BlueprintUtils.read(list, reader);
 	}
 
 	public AiProgramType getType() {
@@ -48,7 +48,7 @@ public abstract class CustomAi extends NativeComponent implements AiProgramBluep
 
 	@Override
 	public Collection<String> load(CustomEntity entity) {
-		return Collections.singleton("AI;" + name);
+		return BlueprintUtils.load("AI;" + name, list);
 	}
 
 	@Override

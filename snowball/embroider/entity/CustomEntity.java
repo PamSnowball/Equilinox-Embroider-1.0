@@ -1,12 +1,11 @@
 package com.snowball.embroider.entity;
 
 import com.snowball.embroider.component.IComponent;
-import com.snowball.embroider.enumerator.classification.BaseClassification;
-import com.snowball.mod.load.Initializer;
-import com.snowball.embroider.util.Vector;
-import com.snowball.embroider.util.Utils;
-import resourceManagement.BlueprintRepository;
 import com.snowball.embroider.enumerator.classification.IClassifier;
+import com.snowball.embroider.util.Utils;
+import com.snowball.embroider.util.Vector;
+import com.snowball.mod.load.Initializer;
+import resourceManagement.BlueprintRepository;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -40,7 +39,7 @@ public class CustomEntity implements IClassifier {
 	protected List<String> components = new ArrayList<>();
 	protected StringBuilder newEntity = new StringBuilder();
 
-	public CustomEntity(int id, String name, BaseClassification classification, float size, int stages) {
+	public CustomEntity(int id, String name, IClassifier classification, float size, int stages) {
 		this.stages = Math.max(stages, 1);
 
 		this.classification = classification.toString();
@@ -170,7 +169,8 @@ public class CustomEntity implements IClassifier {
 		newEntity.append(classification);
 		newEntity.append("\n");
 		
-		newEntity.append(Utils.value(height <= 0 && aquatic ? 1 : 0, height >= 0 ? 1 : 0, height != 0 ? height : ""));
+		newEntity.append(Utils.value(height <= 0 && aquatic ? 1 : 0, height >= 0 ? 1 : 0));
+		if (height != 0) newEntity.append(height);
 
 		newEntity.append("\n");
 

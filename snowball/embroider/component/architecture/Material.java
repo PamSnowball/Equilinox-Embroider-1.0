@@ -2,9 +2,9 @@ package com.snowball.embroider.component.architecture;
 
 import com.snowball.embroider.component.NativeComponent;
 import com.snowball.embroider.entity.CustomEntity;
-import com.snowball.embroider.util.Vector;
-import com.snowball.embroider.util.Utils;
 import com.snowball.embroider.enumerator.Colours;
+import com.snowball.embroider.util.Utils;
+import com.snowball.embroider.util.Vector;
 
 import java.util.*;
 import java.util.stream.IntStream;

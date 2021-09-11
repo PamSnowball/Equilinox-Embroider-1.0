@@ -3,10 +3,10 @@ package com.snowball.embroider.component.architecture;
 import com.snowball.embroider.component.NativeComponent;
 import com.snowball.embroider.entity.CustomEntity;
 import com.snowball.embroider.entity.ModelConverter;
-import com.snowball.embroider.util.component.Death.Fade;
-import com.snowball.embroider.util.component.CompDeath;
-import com.snowball.embroider.util.Utils;
 import com.snowball.embroider.enumerator.FoodTypes;
+import com.snowball.embroider.util.Utils;
+import com.snowball.embroider.util.component.CompDeath;
+import com.snowball.embroider.util.component.Death.Fade;
 
 import java.util.ArrayList;
 import java.util.Collection;

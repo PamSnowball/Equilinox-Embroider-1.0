@@ -2,10 +2,10 @@ package com.snowball.embroider.component.blueprint;
 
 import blueprints.Blueprint;
 import com.snowball.embroider.component.IComponent;
+import com.snowball.embroider.entity.CustomEntity;
 import componentArchitecture.Component;
 import componentArchitecture.ComponentBlueprint;
 import componentArchitecture.ComponentLoader;
-import com.snowball.embroider.entity.CustomEntity;
 import componentArchitecture.ComponentType;
 import speciesInformation.SpeciesInfoLine;
 import speciesInformation.SpeciesInfoType;
@@ -15,16 +15,23 @@ import java.util.*;
 
 public abstract class Comp extends ComponentBlueprint implements ComponentLoader, IComponent {
 	public static class CompData {
-		String s;
-		Object o;
+		boolean optional = false;
 
-		public CompData(String s, Object o) {
-			this.s = s;
-			this.o = o;
+		final String label;
+		final Object value;
+
+		public CompData(String label, Object value) {
+			this.label = label;
+			this.value = value;
+		}
+
+		public CompData setOptional() {
+			this.optional = true;
+			return this;
 		}
 	}
 
-	final Map<String, Object> map = new HashMap<>();
+	final List<CompData> list = new ArrayList<>();
 
 	CustomComponentType type;
 	Component component;
@@ -34,7 +41,7 @@ public abstract class Comp extends ComponentBlueprint implements ComponentLoader
 	int id;
 
 	protected void setData(CompData data) {
-		map.put(data.s, data.o);
+		list.add(data);
 	}
 
 	protected Comp(int id, CustomComponentType type) {
@@ -56,7 +63,7 @@ public abstract class Comp extends ComponentBlueprint implements ComponentLoader
 
 	@Override
 	public Collection<String> load(CustomEntity entity) {
-		return BlueprintUtils.load(this);
+		return BlueprintUtils.load(name, list);
 	}
 
 	@Override
@@ -71,7 +78,7 @@ public abstract class Comp extends ComponentBlueprint implements ComponentLoader
 
 	@Override
 	public ComponentBlueprint load(CSVReader reader, Blueprint blueprint) {
-		BlueprintUtils.read(map, reader);
+		BlueprintUtils.read(list, reader);
 		return this;
 	}
 

@@ -107,18 +107,28 @@ public class ModelConverter {
 
 			pointer.add(i);
 
-			if (entity.hasMaterial() && !(entity.hasEggStage() && j == 0)) {
-				colour.set(0, -1F);
-				colour.set(1, 0F);
-				colour.set(2, 0F);
-			}
+			checkMaterials(entity, j, colour);
 
 			models.add(new EquiliModel(pointer, vertex, normal, colour, faces));
 		}
 
 		return new Model(models, entity).get();
 	}
-	
+
+	private static void checkMaterials(CustomEntity entity, int j, List<Float> colour) {
+		if (entity.hasMaterial() && !(entity.hasEggStage() && j == 0)) {
+			for (int i = 0; i < colour.size(); i++) {
+				if (i % 6 == 0) {
+					colour.set(i, -1F);
+					colour.set(i + 1, 0F);
+					colour.set(i + 2, 0F);
+				}
+			}
+		}
+
+		System.out.println(colour);
+	}
+
 	private static void lineReader(List<List<String>> stringList, List<Integer> pointer, List<List<Float>> floatList, String objLine) {
 		List<String> faces = stringList.get(0);
 		List<String> mtlLines = stringList.get(1);
@@ -140,7 +150,7 @@ public class ModelConverter {
 			normal.add(Float.parseFloat(objSplit[2]));
 			normal.add(Float.parseFloat(objSplit[3]));
 		}
-		
+
 		if (objSplit[0].equals("usemtl")) {
 			faces.add(POINTER);
 			pointer.add(i);
@@ -206,8 +216,6 @@ public class ModelConverter {
 				faces.add(model.getFaces());
 			}
 
-			System.out.println(colour);
-
 			this.entity = convert(models.size(), rawEntity, rawEntity.loadComponents());
 		}
 
@@ -233,7 +241,7 @@ public class ModelConverter {
 
 				entities.add(faces.get(k).size() - pointerSize + ";" + pointerSize);
 
-				loadModel(entities, k);
+				entities.addAll(loadModel(k));
 			}
 
 			String outputEntity =
@@ -252,11 +260,14 @@ public class ModelConverter {
 			entities.forEach(builder::append);
 
 			String componentText = builder.toString();
-
-			return outputEntity + componentText.replace("[", "").replace("]", "");
+			String result = outputEntity + componentText.replace("[", "").replace("]", "");
+			System.out.println(result);
+			return result;
 		}
 
-		private void loadModel(List<String> entities, int stage) {
+		private List<String> loadModel(int stage) {
+			List<String> entities = new ArrayList<>();
+
 			int j = 1;
 
 			int point = colour.get(stage).size() / 3 - 1;
@@ -288,6 +299,7 @@ public class ModelConverter {
 			}
 
 			entities.add("\n");
+			return entities;
 		}
 
 		static float getMax(List<Float> floatList, int axis) {
